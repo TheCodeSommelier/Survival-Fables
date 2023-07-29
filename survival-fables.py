@@ -4,9 +4,8 @@ import random
 # This class are essentially the players
 class Survivors:
 
-  def __init__(self, name, skills=[], bomb=[], armour=0, health=100, alive=True, damage=40, end="No"):
+  def __init__(self, name, bomb=[], armour=0, health=100, alive=True, damage=40, end="No"):
     self.name = name # String for the survivors name
-    self.skills = skills # A list of skills. Skills can be aquired in a library
     self.bomb = bomb # A list of bombs. Bombs can be crafted in an armoury!
     self.armour = armour # Integer symbolising armour
     self.health = health # Integer symbolising health
@@ -15,6 +14,8 @@ class Survivors:
     self.end = end # Yes or No value based on player input
     self.equipped_melee_weapon = None # This determines if a melee weapon is equipped or not
     self.equipped_ranged_weapon = None # This determines if a ranged weapon is equipped or not
+    self.combat_skill = None
+    self.tracking_skill = None
 
   # When called lets players "explore". 
   def explore(self, hive, aliens, base):
@@ -351,8 +352,8 @@ class Armoury:
 class Library:
   
   def learn_combat(self, player):
-    if "combat" not in player.skills:
-      player.skills.append("combat")
+    if player.combat_skill is None:
+      player.combat_skill = "Combat expert"
       player.damage += 30
       print(f"\n{player.name} is now a combat expert. They have {player.damage} of damage. ")
     else:        
@@ -360,8 +361,8 @@ class Library:
 
   
   def learn_tracking(self, player):
-    if "tracking" not in player.skills:
-      player.skills.append("tracking")
+    if player.tracking_skill is None:
+      player.tracking_skill = "Tracking expert"
       print(f"\n{player.name} is now a tracker. {player.name} has a higher probability of getting more materials! ")
     else:
       print(f"\n{player.name} is already a tracker... ")
