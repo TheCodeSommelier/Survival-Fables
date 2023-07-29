@@ -4,17 +4,17 @@ import random
 # This class are essentially the players
 class Survivors:
 
-  def __init__(self, name, skills=[], gear=[], armour=0, health=100, alive=True, damage=40, end="No"):
+  def __init__(self, name, skills=[], bomb=[], armour=0, health=100, alive=True, damage=40, end="No"):
     self.name = name # String for the survivors name
     self.skills = skills # A list of skills. Skills can be aquired in a library
-    self.gear = gear # A list of gear. Gear can be crafted in an armoury!
+    self.bomb = bomb # A list of bombs. Bombs can be crafted in an armoury!
     self.armour = armour # Integer symbolising armour
     self.health = health # Integer symbolising health
     self.alive = alive # Boolean value symbolising if the person is alive
     self.damage = damage # Integer symbolising the damage the person can deal
     self.end = end # Yes or No value based on player input
-    self.equipped_melee_weapon = None
-    self.equipped_ranged_weapon = None
+    self.equipped_melee_weapon = None # This determines if a melee weapon is equipped or not
+    self.equipped_ranged_weapon = None # This determines if a ranged weapon is equipped or not
 
   # When called lets players "explore". 
   def explore(self, hive, aliens, base):
@@ -136,7 +136,7 @@ class Survivors:
     - Spear (adds 20 damage to the player. Costs 20 of wood and stone)
     - Bow (adds 30 damage to the player. Costs 30 of wood and stone)
     - Upgrade defenses (adds 30 to the base defenses. Costs 30 wood and stone and 50 iron)
-    - Bomb (adds a bomb to your gear and youcan then attack the hive. Costs 150 minerals and 120 chemiscals)
+    - Bomb (adds a bomb to your 'Bomb list' and you can then attack the hive. Costs 150 minerals and 120 chemiscals)
     - Armour (adds 100 armour to the player. Costs 20 stone and 30 iron)
     - Nothing 
     """).capitalize()
@@ -191,7 +191,7 @@ class Survivors:
   def attack_the_hive(self, aliens, hive):
 
     # The following statement checks if the requirements for attacking the hive are met
-    if "bomb" in self.gear:
+    if "bomb" in self.bomb:
 
       # This line of code makes the aliens fight the players
       aliens.attack(self)
@@ -200,39 +200,39 @@ class Survivors:
       if self.alive:
         success = [1, 3, 5, 7, 10]
         rand_num = random.randint(1, 10)
-        if rand_num in success and self.gear.count("bomb") == 2:
-          while "bomb" in self.gear:
-            self.gear.remove("bomb")
+        if rand_num in success and self.bomb.count("bomb") == 2:
+          while "bomb" in self.bomb:
+            self.bomb.remove("bomb")
           hive.hp = 0
           print(f"\nYou have destroyed the Hive {self.name}! You win!! The remaining aliens die with horriffing screams and you can finally breathe. It's over... ")
-        elif rand_num in success and self.gear.count("bomb") == 1 and hive.hp == 1000:
-          self.gear.remove("bomb")
+        elif rand_num in success and self.bomb.count("bomb") == 1 and hive.hp == 1000:
+          self.bomb.remove("bomb")
           hive.hp -= 500
           print(f"\nYou have dealt some damage to the hive {self.name}. One more attack like this and the Hive will fall! Your HP is {self.health}")
-        elif rand_num in success and self.gear.count("bomb") == 1 and hive.hp == 500:
-          self.gear.remove("bomb")
+        elif rand_num in success and self.bomb.count("bomb") == 1 and hive.hp == 500:
+          self.bomb.remove("bomb")
           hive.hp -= 500
           print(f"\nYou have destroyed the Hive {self.name}! You win!! The remaining aliens die with horriffing screams and you can finally breathe. It's over... ")
         elif rand_num not in success:
-          self.gear.remove("bomb")
+          self.bomb.remove("bomb")
           print(f"\nYour attack failed... You didn't do any damage to the hive... Your HP is {self.health}")
 
       elif not self.alive:
         success = [1, 5, 10, 15, 20]
         rand_num = random.randint(1, 20)
-        if rand_num in success and self.gear.count("bomb") == 2:
-          while "bomb" in self.gear:
-            self.gear.remove("bomb")
+        if rand_num in success and self.bomb.count("bomb") == 2:
+          while "bomb" in self.bomb:
+            self.bomb.remove("bomb")
           print(f"\nYou have destroyed the Hive {self.name}, but you have died trying! The survivors have won!! The remaining aliens die with horriffing screams and you can finally breathe. It's over...")
           hive.hp -= 1000
           for player in players.keys():
             player.end = "Yes"
-        elif rand_num in success and self.gear.count("bomb") == 1 and hive.hp == 1000:
-          self.gear.remove("bomb")
+        elif rand_num in success and self.bomb.count("bomb") == 1 and hive.hp == 1000:
+          self.bomb.remove("bomb")
           hive.hp -= 500
           print(f"\nYou have dealt some damage to the hive, but you died trying {self.name}. One more attack like this and the Hive will fall!")
-        elif rand_num in success and self.gear.count("bomb") == 1 and hive.hp == 500:
-          self.gear.remove("bomb")
+        elif rand_num in success and self.bomb.count("bomb") == 1 and hive.hp == 500:
+          self.bomb.remove("bomb")
           hive.hp -= 500
           print(f"\nYou have destroyed the Hive {self.name}, but you have died trying! The survivors have won!! The remaining aliens die with horriffing screams and you can finally breathe. It's over...")
         elif rand_num not in success:
@@ -317,7 +317,6 @@ class Armoury:
   
   def craft_spear(self, player): # wood + stone
     if player.equipped_melee_weapon is None:
-      player.gear.append("spear")
       player.equipped_melee_weapon = "Spear"
       player.damage += 20
       print(f"{player.name} has crafted a Spear. {player.name} has {player.damage} damage! ")
@@ -326,7 +325,6 @@ class Armoury:
   
   def craft_bow(self, player): # wood + stone
     if player.equipped_ranged_weapon is None:
-      player.gear.append("Bow")
       player.equipped_ranged_weapon = "Bow"
       player.damage += 30
       print(f"{player.name} has crafted a Bow. {player.name} has {player.damage} damage! ")
@@ -338,11 +336,8 @@ class Armoury:
     print(f"\nCongrats you have upgraded your defenses! {base.defenses}!")
   
   def craft_bomb(self, player): # minerals + chemicals
-    if not (player.gear).count("bomb") >= 2:
-      player.gear.append("bomb")
-      print(f"{player.name} has crafted a Bomb. You can now all attack the hive! ")
-    else:
-      print(f"\nThe Armoury has two bombs!")
+    player.bomb.append("bomb")
+    print(f"{player.name} has crafted a Bomb. There are {len(player.bomb)} in the Armoury")
   
   def craft_armour(self, player): # stone + iron
     if player.armour < 100:
@@ -627,7 +622,7 @@ while True:
     \nLearn - Once you have a Library you can actually just learn new skills free of charge
                    1. Combat - You could learn combat (it adds 30 to your damage)
                    2. Tracking - Gives you a higher probability of getting materials when you explore
-    \nAttack the hive - Once you have a bomb even just one you can start attacking th hive but carful you won't always get your way! You might not get the bomb in place if you die before! If you have two bombs in your gear list you might destroy the hive with one attack!
+    \nAttack the hive - Once you have a bomb even just one you can start attacking th hive but carful you won't always get your way! You might not get the bomb in place if you die before! If you have two bombs in your 'bomb list' you might destroy the hive with one attack!
                    
     
     
