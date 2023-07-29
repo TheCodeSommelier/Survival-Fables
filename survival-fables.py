@@ -214,7 +214,7 @@ class Survivors:
             self.gear.remove("bomb")
           hive.hp = 0
           print(f"\nYou have destroyed the Hive {self.name}! You win!! The remaining aliens die with horriffing screams and you can finally breathe. It's over... ")
-          for player in players.keys():
+          for player in players.values():
             player.end = "Yes"
         elif rand_num in success and self.gear.count("bomb") == 1 and hive.hp == 1000:
           self.gear.remove("bomb")
@@ -454,7 +454,7 @@ class Aliens:
       total_alien_damage += alien_info["damage"] * alien_info["how_many"]
 
 
-    # This calculates the respictive damage to the armour of the players if any
+    # This calculates the respective damage to the armour of the players if any
     remainder = 0
     if player.armour > 0:
       if player.armour >= total_alien_damage:
@@ -542,12 +542,12 @@ medicine = Materials("medicine")
 
 # Initializing base 
 base = Base({
-  "wood": 30,
-  "stone": 30,
-  "iron": 0,
-  "medicine": 30,
-  "minerals": 0,
-  "chemicals": 0
+  "wood": 1000,
+  "stone": 1000,
+  "iron": 1000,
+  "medicine": 1000,
+  "minerals": 1000,
+  "chemicals": 1000
 })
 
 # Initializing buildings
@@ -697,8 +697,8 @@ while True:
       player.alive = False
       num_of_alive_players -= 1
 
-  # This checks if all alive players want to end the game and if so ends it
-  if all(player.end == "Yes" for player in players.values()) or hive.hp == 0:
+  # This checks if the hive is still ok and all alive players want to end the game and if so ends it
+  if hive.hp <= 0 or all(player.end == "Yes" for player in players.values()):
         print("Thank you for playing Survival Fables the game is now over! 🙏 ")
         break
   
