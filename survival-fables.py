@@ -633,7 +633,8 @@ while True:
 
     You have these weapons {player.equipped_melee_weapon} and {player.equipped_ranged_weapon}, this is your damage {player.damage} and this is your health {player.health} and armour {player.armour}!
 
-    You have these skills {player.skills} 
+    You have these skills - Combat: {player.combat_skill}
+                          - Tracking: {player.tracking_skill}
 
     And there are these aliens in the world:
     Basic: {aliens.specs['basic']['how_many']} and their damage is {aliens.specs['basic']['how_many'] * aliens.specs['basic']['damage']}
