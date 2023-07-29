@@ -331,7 +331,7 @@ class Armoury:
       player.gear.append("spear")
       player.damage += 20
       print(f"{player.name} has crafted a Spear. {player.name} has {player.damage} damage! ")
-    elif "spear" in player.skills:
+    else:
       print(f"\n{player.name} already has a spear.")
   
   def craft_bow(self, player): # wood + stone
@@ -339,7 +339,7 @@ class Armoury:
       player.gear.append("bow")
       player.damage += 30
       print(f"{player.name} has crafted a Bow. {player.name} has {player.damage} damage! ")
-    elif "bow" in player.skills:
+    else:
       print(f"\n{player.name} already has a bow!")
 
   def upgrade_def(self, base): # lots of iron and stone
@@ -356,8 +356,8 @@ class Armoury:
   def craft_armour(self, player): # stone + iron
     if player.armour < 100:
       player.armour = 100
-      print(f"\n{player.name} has crafted an armour. {player} name has {player.armour} armour!")
-    elif player.armour == 100:
+      print(f"\n{player.name} has crafted an armour. Armour:{player.armour}")
+    else:
       print(f"{player.name} already has a full metal jacket...")
     
 
