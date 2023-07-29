@@ -13,6 +13,8 @@ class Survivors:
     self.alive = alive # Boolean value symbolising if the person is alive
     self.damage = damage # Integer symbolising the damage the person can deal
     self.end = end # Yes or No value based on player input
+    self.equipped_melee_weapon = None
+    self.equipped_ranged_weapon = None
 
   # When called lets players "explore". 
   def explore(self, hive, aliens, base):
@@ -127,73 +129,62 @@ class Survivors:
   def craft_gear(self, base, armoury):
 
     # Again there is while loop that lets players pick what do they want to craft
-    while True:
 
-      # This prompts the player to input what do they want to build
-      player_input = input("""\nWhat do you want to craft? 
-      Type either:
-      - Spear (adds 20 damage to the player. Costs 20 of wood and stone)
-      - Bow (adds 30 damage to the player. Costs 30 of wood and stone)
-      - Upgrade defenses (adds 30 to the base defenses. Costs 30 wood and stone and 50 iron)
-      - Bomb (adds a bomb to your gear and youcan then attack the hive. Costs 150 minerals and 120 chemiscals)
-      - Armour (adds 100 armour to the player. Costs 20 stone and 30 iron)
-      - Nothing 
-      """).capitalize()
+    # This prompts the player to input what do they want to build
+    player_input = input("""\nWhat do you want to craft? 
+    Type either:
+    - Spear (adds 20 damage to the player. Costs 20 of wood and stone)
+    - Bow (adds 30 damage to the player. Costs 30 of wood and stone)
+    - Upgrade defenses (adds 30 to the base defenses. Costs 30 wood and stone and 50 iron)
+    - Bomb (adds a bomb to your gear and youcan then attack the hive. Costs 150 minerals and 120 chemiscals)
+    - Armour (adds 100 armour to the player. Costs 20 stone and 30 iron)
+    - Nothing 
+    """).capitalize()
 
-      # This conditional statement checks if the requirements for the crafting are met and if so it lets the player build what do they want to build.
-      if base.armoury:
-        if player_input == "Spear":
-          if base.storage["wood"] >= 20 and base.storage["stone"] >= 20:
-            base.storage["wood"] -= 20
-            base.storage["stone"] -= 20
-            armoury.craft_spear(self)
-            break
-          else:
-            print("You don't have enough materials to craft a Spear...")
-            break
-        elif player_input == "Bow":
-          if base.storage["wood"] >= 30 and base.storage["stone"] >= 30:
-            base.storage["wood"] -= 30
-            base.storage["stone"] -= 30
-            armoury.craft_bow(self)
-            break
-          else:
-            print("You dno't have enough materials to craft a Bow... ")
-            break
-        elif player_input == "Upgrade defenses":
-          if base.storage["wood"] >= 30 and base.storage["stone"] >= 30 and base.storage["iron"] >= 40:
-            base.storage["wood"] -= 30
-            base.storage["stone"] -= 30
-            base.storage["iron"] -= 50
-            armoury.upgrade_def(base)
-            break
-          else:
-            print("You don't have enough materials to Upgrade defenses...")
-            break
-        elif player_input == "Bomb":
-          if base.storage["minerals"] >= 150 and base.storage["chemicals"] >= 120:
-            base.storage["minerals"] -= 150
-            base.storage["chemicals"] -= 120
-            armoury.craft_bomb(self)
-            break
-          else:
-            print("You don' have enough materials to craft a Bomb... ")
-            break
-        elif player_input == "Armour":
-          if base.storage["stone"] >= 20 and base.storage["iron"] >= 30:
-            base.storage["stone"] -= 20
-            base.storage["iron"] -= 30
-            armoury.craft_armour(self)
-            break
-          else:
-            print("You don't have enough materials to craft Armour...")
-            break
-        elif player_input == "Nothing":
-          print(f"{player.name} chose to craft nothing! ")
+    # This conditional statement checks if the requirements for the crafting are met and if so it lets the player build what do they want to build.
+    if base.armoury:
+      if player_input == "Spear":
+        if base.storage["wood"] >= 20 and base.storage["stone"] >= 20:
+          base.storage["wood"] -= 20
+          base.storage["stone"] -= 20
+          armoury.craft_spear(self)
         else:
-          print(f"Invalid input... Please input 'Spear', 'Bow', 'Upgrade defenses', 'Bomb', 'Armour' or 'Nothing'. ")
+          print("You don't have enough materials to craft a Spear...")
+      elif player_input == "Bow":
+        if base.storage["wood"] >= 30 and base.storage["stone"] >= 30:
+          base.storage["wood"] -= 30
+          base.storage["stone"] -= 30
+          armoury.craft_bow(self)
+        else:
+          print("You dno't have enough materials to craft a Bow... ")
+      elif player_input == "Upgrade defenses":
+        if base.storage["wood"] >= 30 and base.storage["stone"] >= 30 and base.storage["iron"] >= 40:
+          base.storage["wood"] -= 30
+          base.storage["stone"] -= 30
+          base.storage["iron"] -= 50
+          armoury.upgrade_def(base)
+        else:
+          print("You don't have enough materials to Upgrade defenses...")
+      elif player_input == "Bomb":
+        if base.storage["minerals"] >= 150 and base.storage["chemicals"] >= 120:
+          base.storage["minerals"] -= 150
+          base.storage["chemicals"] -= 120
+          armoury.craft_bomb(self)
+        else:
+          print("You don' have enough materials to craft a Bomb... ")
+      elif player_input == "Armour":
+        if base.storage["stone"] >= 20 and base.storage["iron"] >= 30:
+          base.storage["stone"] -= 20
+          base.storage["iron"] -= 30
+          armoury.craft_armour(self)
+        else:
+          print("You don't have enough materials to craft Armour...")
+      elif player_input == "Nothing":
+        print(f"{player.name} chose to craft nothing! ")
       else:
-        print("\nYou don't have an Armoury. You can build it for 150 wood, 150 stone and 100 iron. ")
+        print(f"Invalid input... Please input 'Spear', 'Bow', 'Upgrade defenses', 'Bomb', 'Armour' or 'Nothing'. ")
+    else:
+      print("\nYou don't have an Armoury. You can build it for 150 wood, 150 stone and 100 iron. ")
 
 
   # This lets the players attack the hive and potentially win the game
@@ -214,8 +205,6 @@ class Survivors:
             self.gear.remove("bomb")
           hive.hp = 0
           print(f"\nYou have destroyed the Hive {self.name}! You win!! The remaining aliens die with horriffing screams and you can finally breathe. It's over... ")
-          for player in players.values():
-            player.end = "Yes"
         elif rand_num in success and self.gear.count("bomb") == 1 and hive.hp == 1000:
           self.gear.remove("bomb")
           hive.hp -= 500
@@ -327,16 +316,18 @@ class Infirmary:
 class Armoury:
   
   def craft_spear(self, player): # wood + stone
-    if "spear" not in player.gear:
+    if player.equipped_melee_weapon is None:
       player.gear.append("spear")
+      player.equipped_melee_weapon = "Spear"
       player.damage += 20
       print(f"{player.name} has crafted a Spear. {player.name} has {player.damage} damage! ")
     else:
       print(f"\n{player.name} already has a spear.")
   
   def craft_bow(self, player): # wood + stone
-    if "bow" not in player.gear:
-      player.gear.append("bow")
+    if player.equipped_ranged_weapon is None:
+      player.gear.append("Bow")
+      player.equipped_ranged_weapon = "Bow"
       player.damage += 30
       print(f"{player.name} has crafted a Bow. {player.name} has {player.damage} damage! ")
     else:
@@ -349,9 +340,9 @@ class Armoury:
   def craft_bomb(self, player): # minerals + chemicals
     if not (player.gear).count("bomb") >= 2:
       player.gear.append("bomb")
-      print(f"{player.name} has crafted a Bomb. {player.name} can now attack the hive! ")
+      print(f"{player.name} has crafted a Bomb. You can now all attack the hive! ")
     else:
-      print(f"\n{player.name} already has two bombs!")
+      print(f"\nThe Armoury has two bombs!")
   
   def craft_armour(self, player): # stone + iron
     if player.armour < 100:
@@ -644,7 +635,7 @@ while True:
                    
     You have {base.storage['wood']} of wood, {base.storage['stone']} of stone, {base.storage['iron']} of iron, {base.storage['medicine']} of medicine, {base.storage['minerals']} of minerals and {base.storage['chemicals']} of chemicals.
 
-    You have this gear {player.gear}, this is your damage {player.damage} and this is your health {player.health} and armour {player.armour}!
+    You have these weapons {player.equipped_melee_weapon} and {player.equipped_ranged_weapon}, this is your damage {player.damage} and this is your health {player.health} and armour {player.armour}!
 
     You have these skills {player.skills} 
 
