@@ -499,7 +499,7 @@ class Aliens:
       
     else:
       for material in base.storage.keys():
-        base.storage[material] = 0
+        base.storage[material] /= 2
       print("\nYour base defenses have been destroyed... FIGHT FOR YOUR LIFE!")
       self.attack(player)
 
