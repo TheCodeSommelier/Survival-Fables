@@ -3,7 +3,7 @@ import random
 # This class are essentially the players
 class Survivors:
 
-  def __init__(self, name, bomb=[], armour=0, health=100, alive=True, damage=40, end="No"):
+  def __init__(self, name, bomb=[], armour=0, health=100, alive=True, damage=40, end=False):
     self.name = name # String for the survivors name
     self.bomb = bomb # A list of bombs. Bombs can be crafted in an armoury!
     self.armour = armour # Integer symbolising armour

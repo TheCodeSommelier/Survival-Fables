@@ -1,6 +1,4 @@
 
-
-# Works!!!
 class Base:
   def __init__(self, storage={}, defenses=50, main_building=True):
     self.storage = storage # A dictionary contianing type of materials as keys and values as how much

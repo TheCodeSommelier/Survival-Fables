@@ -2,41 +2,23 @@ from players import *
 
 from base_and_buildings import *
 
-from aliens import *
+from aliens import aliens
 
-from hive import *
+from hive import Hive
 
-
-# This is imports the python random package into the code
 import random
 
 
 
-# A solo standing function that initialises a random base attack
-def initialize_rand_attack(base, aliens, player):
-  random_attack = [16, 33, 12, 42, 22]
+# A solo standing function that starts a randomised attack on the base
+def random_base_attack(base, aliens, player):
+  numbers = [16, 33, 12, 42, 22]
   random_number = random.randint(1, 50)
-  if random_number in random_attack:
+  if random_number in numbers:
     aliens.attack_base(base, player, aliens)
 
-      
-# THE WORLD!! 🌎
-# To use / build from 🪵 🪨 ⛏️ 🧪
-class Materials:
-  
-  def __init__(self, type):
-    self.type = type
 
 
-# Initializing materials in the world
-wood = Materials("wood")
-stone = Materials("stone")
-iron = Materials("iron")
-minerals = Materials("minerals")
-chemicals = Materials("chemicals")
-medicine = Materials("medicine")
-
-# Initializing base 
 base = Base({
   "wood": 1000,
   "stone": 1000,
@@ -45,17 +27,12 @@ base = Base({
   "minerals": 1000,
   "chemicals": 1000
 })
-
-# Initializing buildings
 infirmary = Infirmary()
 armoury = Armoury()
 library = Library()
 
-# Initializing hive
+
 hive = Hive()
-
-
-
 
 # Starting message what players see when they start the game!
 print("""\nWelcome to 'Survival Fables'!!
@@ -74,32 +51,32 @@ Go and save the world! Destroy the 'Hive'!
 
 
 # This piece of code asks for the number of players playing and then lets the players assign their names
-num_of_p = int(input("How many of you are playing? "))
-for i in range(num_of_p):
+number_of_players = int(input("How many of you are playing? "))
+for i in range(number_of_players):
   name = input(f"What is the name of player {i + 1}? ")
   players[name] = Survivors(name)
 
-# This is the actual game loop
-while True:
+# This is the game loop
+game_running = True
+while game_running:
 
-  # This loop check which players are alive
-  num_of_alive_players = 0
-  for player in players.values():
-    if player.alive:
-      num_of_alive_players += 1
-
-  # If all players are dead the message below gets printed  
-  if num_of_alive_players == 0:
-    print("All players are dead. Game Over!")
-    break
-  
   # This loop checks if a player is alive and skips their turn if not!
   for player in players.values():
     if not player.alive:
       continue
 
-    # Random base attack function call
-    initialize_rand_attack(base, aliens, player)
+    if hive.hp <= 0 or all(player.end == True for player in players.values()):
+      print("Thank you for playing Survival Fables the game is now over! 🙏 ")
+      game_running = False
+      break
+    elif all(player.alive == False for player in players.values()):
+      print("""All players have died! 
+      Thank you for playing Survival Fables the game is now over! 🙏 """)
+      game_running = False
+      break
+
+
+    random_base_attack(base, aliens, player)
         
     # This is the player interface!
     choice = input(f"""
@@ -172,20 +149,14 @@ while True:
     elif choice == "8":
       player.learn(base, library)
     elif choice == "9":
-      player.end = "Yes"
       for player in players.values():
-        if player.alive == False:
-          player.end = "Yes"
+        end = input(f"Are you sure you want to end the game {player.name}? (Yes/No) ")
+        if end.capitalize() == "Yes":
+          player.end = True
     else:
       print("\nInvalid choice try again.")
 
-    # This checks if a plaer is alive and if not subtracts 1 from the number of alive players
+
     if not player.alive:
       player.alive = False
-      num_of_alive_players -= 1
-
-  # This checks if the hive is still ok and all alive players want to end the game and if so ends it
-  if hive.hp <= 0 or all(player.end == "Yes" for player in players.values()):
-        print("Thank you for playing Survival Fables the game is now over! 🙏 ")
-        break
   
