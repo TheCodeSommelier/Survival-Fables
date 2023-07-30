@@ -33,15 +33,36 @@ class Armoury:
       player.damage += 20
       print(f"{player.name} has crafted a Spear. {player.name} has {player.damage} damage! ")
     else:
-      print(f"\n{player.name} already has a spear.")
+      print(f"\nYou already have a spear or a knife.")
   
   def craft_bow(self, player):
     if player.equipped_ranged_weapon is None:
       player.equipped_ranged_weapon = "Bow"
       player.damage += 30
-      print(f"{player.name} has crafted a Bow. {player.name} has {player.damage} damage! ")
+      print(f"Great! You have crafted a Bow. {player.name} has {player.damage} damage! ")
     else:
-      print(f"\n{player.name} already has a bow!")
+      print(f"\nYou already have a bow!")
+
+  def craft_knife(self, player):
+    if player.equipped_melee_weapon is None:
+      player.equipped_melee_weapon = "Knife"
+      player.damage += 50
+      print(f"Great! You have crafted a Knife. {player.name} has {player.damage} damage! ")
+    elif player.equipped_melee_weapon is "Spear":
+      player.equipped_melee_weapon = "Knife"
+      player.damage += (50 - 20)
+      print(f"Great! You have crafted a Knife. {player.name} has {player.damage} damage! ")
+      
+  def craft_gun(self, player):
+    if player.equipped_melee_weapon is None:
+      player.equipped_melee_weapon = "Gun"
+      player.damage += 80
+      print(f"Great! You have crafted a Gun. {player.name} has {player.damage} damage! ")
+    elif player.equipped_melee_weapon is "Bow":
+      player.equipped_melee_weapon = "Gun"
+      player.damage += (80 - 30)
+      print(f"Great! You have crafted a Gun. {player.name} has {player.damage} damage! ")
+      
 
   def upgrade_def(self, base):
     base.defenses += 30
@@ -58,7 +79,6 @@ class Armoury:
     else:
       print(f"{player.name} already has a full metal jacket...")
     
-
 
 class Library:
   def learn_combat(self, player):
