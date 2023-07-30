@@ -28,7 +28,7 @@ class Infirmary:
 
 class Armoury:
   def craft_spear(self, player):
-    if player.equipped_melee_weapon is None:
+    if player.equipped_melee_weapon == None:
       player.equipped_melee_weapon = "Spear"
       player.damage += 20
       print(f"{player.name} has crafted a Spear. {player.name} has {player.damage} damage! ")
@@ -36,7 +36,7 @@ class Armoury:
       print(f"\nYou already have a spear or a knife.")
   
   def craft_bow(self, player):
-    if player.equipped_ranged_weapon is None:
+    if player.equipped_ranged_weapon == None:
       player.equipped_ranged_weapon = "Bow"
       player.damage += 30
       print(f"Great! You have crafted a Bow. {player.name} has {player.damage} damage! ")
@@ -44,21 +44,21 @@ class Armoury:
       print(f"\nYou already have a bow!")
 
   def craft_knife(self, player):
-    if player.equipped_melee_weapon is None:
+    if player.equipped_melee_weapon == None:
       player.equipped_melee_weapon = "Knife"
       player.damage += 50
       print(f"Great! You have crafted a Knife. {player.name} has {player.damage} damage! ")
-    elif player.equipped_melee_weapon is "Spear":
+    elif player.equipped_melee_weapon == "Spear":
       player.equipped_melee_weapon = "Knife"
       player.damage += (50 - 20)
       print(f"Great! You have crafted a Knife. {player.name} has {player.damage} damage! ")
       
   def craft_gun(self, player):
-    if player.equipped_melee_weapon is None:
+    if player.equipped_melee_weapon == None:
       player.equipped_melee_weapon = "Gun"
       player.damage += 80
       print(f"Great! You have crafted a Gun. {player.name} has {player.damage} damage! ")
-    elif player.equipped_melee_weapon is "Bow":
+    elif player.equipped_melee_weapon == "Bow":
       player.equipped_melee_weapon = "Gun"
       player.damage += (80 - 30)
       print(f"Great! You have crafted a Gun. {player.name} has {player.damage} damage! ")
