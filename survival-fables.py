@@ -141,7 +141,7 @@ while game_running:
     elif choice == "4":
       player.craft_gear(base, armoury, player)
     elif choice == "5":
-      player.attack_the_hive(aliens, hive)
+      player.attack_the_hive(aliens, hive, player)
     elif choice == "6":
       other_player = input("Who do you want to save? ")
       player.save_a_player(base, other_player, infirmary)
