@@ -183,7 +183,7 @@ class Survivors:
     aliens.attack(self)
 
     if not self.alive:
-        success = [1, 3, 5, 7, 10]
+        success = [1, 3, 5, 7, 8, 9, 10]
         rand_num = random.randint(1, 10)
         if rand_num in success and self.bomb.count("bomb") == 2:
             while "bomb" in self.bomb:
