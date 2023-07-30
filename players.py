@@ -13,12 +13,29 @@ MATERIAL_REQUIREMENTS = {
   "Revive": {"medicine": 60}
 }
 
+MATERIAL_MULTIPLIER = {
+  "wood": 1,
+  "stone": 1,
+  "iron": 0.5,
+  "medicine": 0.5,
+  "minerals": 1/3,
+  "chemicals": 1/3
+}
+
 def subtract_materials(base, building_name, material_requirements):
   if building_name in material_requirements:
     requirements = material_requirements[building_name]
     for material, amount in requirements.items():
         if material in base.storage and base.storage[material] >= amount:
             base.storage[material] -= amount
+
+def gather_materials(base):
+  numbers = [1, 3, 5, 6, 7, 8, 10, 13, 15, 17, 20, 22, 25, 27, 30]
+  picked_number = random.randint(0, 30)
+  if picked_number in numbers:
+    for material in base.storage.keys():
+      multiplier = MATERIAL_MULTIPLIER[material]
+      base.storage[material] += int(picked_number * multiplier)
 
 # This class are essentially the players
 class Survivors:
@@ -38,35 +55,11 @@ class Survivors:
 
   # When called lets players "explore". 
   def explore(self, hive, aliens, base):
-
-    # Next two lines randomise the materials gathering
-    rand_materials = [1, 3, 5, 6, 7, 8, 10, 13, 15, 17, 20, 22, 25, 27, 30]
-    random_num_m = random.randint(0, 30)
-
-    # This logic spawns a new alien everytime the player goes out to explore and also merges everytime there are enough aliens to merge into a bigger alien!
     hive.spawn_aliens(aliens)
     aliens.merge(aliens)
+    gather_materials(base)
     
-    # This combination of coditionals and for loops allow for the materials to be gathered and also check if a player has learned tracking and if so, it lets them collect more materials
-    if random_num_m in rand_materials:
-      for material in base.storage.keys():
-        if material == "wood" or material == "stone":
-          base.storage[material] += int(random_num_m)
-        elif material == "iron" or material == "medicine":
-          base.storage[material] += int(random_num_m / 2)
-        elif material == "minerals" or material == "chemicals":
-          base.storage[material] += int(random_num_m / 3)
-      if self.tracking_skill is not None:
-        for material in base.storage.keys():
-          if material == "wood" or material == "stone":
-            base.storage[material] += int(random_num_m) + 20
-          elif material == "iron" or material == "medicine":
-            base.storage[material] += int(random_num_m / 2) + 15
-          elif material == "minerals" or material == "chemicals":
-            base.storage[material] += int(random_num_m / 3) + 10
-
-
-  # This function allows players to fight with aliens and checks if a player is dead.
+  
   def fight_aliens(self, aliens, player):
     #total_player_damage = self.damage
     aliens.attack(player)
