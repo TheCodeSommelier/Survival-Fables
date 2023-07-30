@@ -1,5 +1,25 @@
 import random
 
+MATERIAL_REQUIREMENTS = {
+  "Infirmary": {"wood": 50, "stone": 50},
+  "Armoury": {"wood": 150, "stone": 150, "iron": 100},
+  "Library": {"wood": 100, "stone": 100},
+  "Spear": {"wood": 20, "stone": 20},
+  "Bow": {"wood": 30, "stone": 30},
+  "Upgrade defenses": {"wood": 30, "stone": 30, "iron": 50},
+  "Bomb": {"minerals": 150, "chemicals": 120},
+  "Armour": {"stone": 20, "iron": 30},
+  "Heal": {"medicine": 15},
+  "Revive": {"medicine": 60}
+}
+
+def subtract_materials(base, building_name, material_requirements):
+  if building_name in material_requirements:
+    requirements = material_requirements[building_name]
+    for material, amount in requirements.items():
+        if material in base.storage and base.storage[material] >= amount:
+            base.storage[material] -= amount
+
 # This class are essentially the players
 class Survivors:
 
@@ -84,11 +104,8 @@ class Survivors:
           break
         elif base.storage["wood"] >= 50 and base.storage["stone"] >= 50:
           base.infirmary = True
-          base.storage["wood"] -= 50
-          base.storage["stone"] -= 50
-          for i in range(10):
-            hive.spawn_aliens(aliens)
-          aliens.merge(aliens)
+          subtract_materials(base, player_input, MATERIAL_REQUIREMENTS)
+          aliens.specs["mid"] += 1
           print(f"\nCongrats you have built an Infirmary now you can heal and revive players! Also there is {aliens.specs['basic']['how_many']} of basic aliens, {aliens.specs['mid']['how_many']} of mid aliens and {aliens.specs['boss']['how_many']} of boss aliens.")
           break
         else:
@@ -100,12 +117,8 @@ class Survivors:
           break
         elif base.storage["stone"] >= 150 and base.storage["wood"] >= 150 and base.storage["iron"] >= 100:
           base.armoury = True
-          base.storage["wood"] -= 150
-          base.storage["stone"] -= 150
-          base.storage["iron"] -= 100
-          for i in range(10):
-            hive.spawn_aliens(aliens)
-          aliens.merge(aliens)
+          subtract_materials(base, player_input, MATERIAL_REQUIREMENTS)
+          aliens.specs["mid"] += 1
           print(f"\nCongrats you have built an Armoury you can now craft weapons and a bomb! Also there is {aliens.specs['basic']['how_many']} of basic aliens, {aliens.specs['mid']['how_many']} of mid aliens and {aliens.specs['boss']['how_many']} of boss aliens.")
           break
         else:
@@ -117,11 +130,8 @@ class Survivors:
           break
         elif base.storage["wood"] >= 100 and base.storage["stone"] >= 100:
           base.library = True
-          base.storage["wood"] -= 100
-          base.storage["stone"] -= 100
-          for i in range(10):
-            hive.spawn_aliens(aliens)
-          aliens.merge(aliens)
+          subtract_materials(base, player_input, MATERIAL_REQUIREMENTS)
+          aliens.specs["mid"] += 1
           print(f"\nCongrats you have built a Library you can learn new skills now! Also there is {aliens.specs['basic']['how_many']} of basic aliens, {aliens.specs['mid']['how_many']} of mid aliens and {aliens.specs['boss']['how_many']} of boss aliens.")
           break
         else:
@@ -154,37 +164,31 @@ class Survivors:
     if base.armoury:
       if player_input == "Spear":
         if base.storage["wood"] >= 20 and base.storage["stone"] >= 20:
-          base.storage["wood"] -= 20
-          base.storage["stone"] -= 20
+          subtract_materials(base, player_input, MATERIAL_REQUIREMENTS)
           armoury.craft_spear(self)
         else:
           print("You don't have enough materials to craft a Spear...")
       elif player_input == "Bow":
         if base.storage["wood"] >= 30 and base.storage["stone"] >= 30:
-          base.storage["wood"] -= 30
-          base.storage["stone"] -= 30
+          subtract_materials(base, player_input, MATERIAL_REQUIREMENTS)
           armoury.craft_bow(self)
         else:
           print("You dno't have enough materials to craft a Bow... ")
       elif player_input == "Upgrade defenses":
         if base.storage["wood"] >= 30 and base.storage["stone"] >= 30 and base.storage["iron"] >= 40:
-          base.storage["wood"] -= 30
-          base.storage["stone"] -= 30
-          base.storage["iron"] -= 50
+          subtract_materials(base, player_input, MATERIAL_REQUIREMENTS)
           armoury.upgrade_def(base)
         else:
           print("You don't have enough materials to Upgrade defenses...")
       elif player_input == "Bomb":
         if base.storage["minerals"] >= 150 and base.storage["chemicals"] >= 120:
-          base.storage["minerals"] -= 150
-          base.storage["chemicals"] -= 120
+          subtract_materials(base, player_input, MATERIAL_REQUIREMENTS)
           armoury.craft_bomb(self)
         else:
           print("You don' have enough materials to craft a Bomb... ")
       elif player_input == "Armour":
         if base.storage["stone"] >= 20 and base.storage["iron"] >= 30:
-          base.storage["stone"] -= 20
-          base.storage["iron"] -= 30
+          subtract_materials(base, player_input, MATERIAL_REQUIREMENTS)
           armoury.craft_armour(self)
         else:
           print("You don't have enough materials to craft Armour...")

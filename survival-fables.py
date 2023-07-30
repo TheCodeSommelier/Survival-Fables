@@ -56,11 +56,12 @@ for i in range(number_of_players):
   name = input(f"What is the name of player {i + 1}? ")
   players[name] = Survivors(name)
 
-# This is the game loop
+
+# This is where the game loop starts
 game_running = True
 while game_running:
 
-  # This loop checks if a player is alive and skips their turn if not!
+
   for player in players.values():
     if not player.alive:
       continue
