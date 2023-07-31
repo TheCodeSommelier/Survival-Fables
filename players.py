@@ -6,6 +6,8 @@ MATERIAL_REQUIREMENTS = {
   "Library": {"wood": 100, "stone": 100},
   "Spear": {"wood": 20, "stone": 20},
   "Bow": {"wood": 30, "stone": 30},
+  "Knife": {"iron": 50},
+  "Gun": {"iron": 80, "chemicals": 50},
   "Upgrade defenses": {"wood": 30, "stone": 30, "iron": 50},
   "Bomb": {"minerals": 150, "chemicals": 120},
   "Armour": {"stone": 20, "iron": 30},
@@ -130,6 +132,8 @@ class Survivors:
     Type either:
     - Spear (adds 20 damage to the player. Costs 20 of wood and stone)
     - Bow (adds 30 damage to the player. Costs 30 of wood and stone)
+    - Knife (adds 50 damage to the player. Costs 50 iron.)
+    - Gun (adds 80 damage to the player. Costs 80 iron and 30 chemicals)
     - Upgrade defenses (adds 30 to the base defenses. Costs 30 wood and stone and 50 iron)
     - Bomb (adds a bomb to your 'Bomb list' and you can then attack the hive. Costs 150 minerals and 120 chemiscals)
     - Armour (adds 100 armour to the player. Costs 20 stone and 30 iron)
@@ -139,32 +143,33 @@ class Survivors:
     if base.armoury:
       if player_input == "Spear":
         if base.storage["wood"] >= 20 and base.storage["stone"] >= 20:
-          subtract_materials(base, player_input, MATERIAL_REQUIREMENTS)
-          armoury.craft_spear(self)
+          armoury.craft_weapon(player, "Spear", 20, base)
         else:
           print("You don't have enough materials to craft a Spear...")
       elif player_input == "Bow":
         if base.storage["wood"] >= 30 and base.storage["stone"] >= 30:
-          subtract_materials(base, player_input, MATERIAL_REQUIREMENTS)
-          armoury.craft_bow(self)
+          armoury.craft_weapon(player, "Bow", 30, base)
         else:
           print("You dno't have enough materials to craft a Bow... ")
+      elif player_input == "Knife":
+        if base.storage["iron"] >= 50:
+          armoury.craft_weapon(player, "Knife", 50, base)
+      elif player_input == "Gun":
+        if base.storage["iron"] >= 80 and base.storage["chemicals"] >= 30:
+          armoury.craft_weapon(player, "Gun", 80, base)
       elif player_input == "Upgrade defenses":
         if base.storage["wood"] >= 30 and base.storage["stone"] >= 30 and base.storage["iron"] >= 40:
-          subtract_materials(base, player_input, MATERIAL_REQUIREMENTS)
-          armoury.upgrade_def(base)
+          armoury.upgrade_defenses(base)
         else:
           print("You don't have enough materials to Upgrade defenses...")
       elif player_input == "Bomb":
         if base.storage["minerals"] >= 150 and base.storage["chemicals"] >= 120:
-          subtract_materials(base, player_input, MATERIAL_REQUIREMENTS)
-          armoury.craft_bomb(self)
+          armoury.craft_weapon(player, "Bomb", 0, base)
         else:
           print("You don' have enough materials to craft a Bomb... ")
       elif player_input == "Armour":
         if base.storage["stone"] >= 20 and base.storage["iron"] >= 30:
-          subtract_materials(base, player_input, MATERIAL_REQUIREMENTS)
-          armoury.craft_armour(self)
+          armoury.craft_armour(self, player, 100, base)
         else:
           print("You don't have enough materials to craft Armour...")
       elif player_input == "Nothing":
