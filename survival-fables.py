@@ -17,6 +17,67 @@ def random_base_attack(base, aliens, player):
   if random_number in numbers:
     aliens.attack_base(base, player, aliens)
 
+def help(player):
+  while True:
+    help_menu = input(f"""What do you need help with {player.name}?
+    1. Beginning of the game
+    2. Fighting aliens
+    3. Building
+    4. Crafting
+    5. Attacing the hive
+    6. Revivng players
+    7. Healing
+    8. Learing
+    9. Don't need help
+    """)
+
+    if help_menu == "1":
+      print("""\nIn the beginning you can really do only two things explore or fight aliens. 
+      We highly recommend exploration as that is how you get materials. Just remeber to fight every now and then,
+      otherwise the aliens will be spawning and merging endlessly. So start with exploring and take it from there!""")
+      break
+    elif help_menu == "2":
+      print(f"""\nFighting aliens is pretty straight forward in this game.
+      Everytime you explore 1 basic alien spawns every 10 basic = 1 mid, every 10 mid = 1 boss. 
+      If your damage is higher then the aliens health you kill them and if it is high enough 
+      to cover all of the health of all the aliens, you kill them all. Try to fight often, 
+      as it will make your game easier. """)
+      break
+    elif help_menu == "3":
+      print("""\nYou need buidings to be able to craft (Armoury), learn (Library), heal (Infirmary) and revive (Infirmary). 
+      So definitely BUILD! Just keep in mind that for every building you build 1 mid alien spawns.
+      Requirements: 
+      """)
+      for building in MATERIAL_REQUIREMENTS.keys():
+        if building in {"Infirmary", "Armoury", "Library"}:
+          print(f"""\n{building} - {MATERIAL_REQUIREMENTS[building]}""")
+      break
+    elif help_menu == "4":
+      print(f"""\nTo craft anything you need an Armoury first. 
+      Once you have it you can craft these weapons and upgrades.
+      Requirements:
+      """)
+      for item, requirements in MATERIAL_REQUIREMENTS.items():
+        if item in {"Spear", "Bow", "Knife", "Gun", "Upgrade defenses", "Bomb", "Armour",}:
+          print(f"{item} - {MATERIAL_REQUIREMENTS[item]}")
+      break
+    elif help_menu == "5":
+      print("""\nIf you have a bomb you can attack the hive. Success rate is randomised so you never know...
+      You need two bombs to destroy the hive completely in single go (Attack needs to be successful). 
+      Once you destroy the hive either in multiple attacks or in a single go you win!""")
+      break
+    elif help_menu == "6":
+      print(f"""\nIf a player dies you can revive them for 60 medicine. It will add 20 hp to their health. """)
+      break
+    elif help_menu == "7":
+      print(f"""\nWhen you take some damage you can heal for 20 medicine and each heal will add 20hp to your health. """)
+      break
+    elif help_menu == "8":
+      print(f"""\nIf you have a library built you can learn new skills 'Combat' will increase your damage
+      and 'Tracking' will increase the probability of finding materials when exploring. """)
+      break
+    elif help_menu == "9":
+      break
 
 
 base = Base({
@@ -120,7 +181,8 @@ while game_running:
     6. Revive a player (only functional when a player is dead)
     7. Heal (only functional with less health than a 100)
     8. Learn (learn extra skills either tracking or combat)
-    9. End game 
+    9. Help (Will display a manual)
+    10. End game 
     """).lower()
 
     # This if/elif/else statement lets players pick their action
@@ -142,6 +204,8 @@ while game_running:
     elif choice == "8":
       player.learn(base, library)
     elif choice == "9":
+      help(player)
+    elif choice == "10":
       for player in players.values():
         end = input(f"Are you sure you want to end the game {player.name}? (Yes/No) ")
         if end.capitalize() == "Yes":
