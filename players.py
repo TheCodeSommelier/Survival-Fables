@@ -251,8 +251,8 @@ class Survivors:
   def learn(self, base, library):
     if base.library:
       input_p = input("""\nWhat do you want to learn? 
-                      1. Combat
-                      2. Tracking 
+                      1. Combat (Adds 30 damage to your overall damage)
+                      2. Tracking (Increases the probability of you finding materials)
                       """)
       if input_p == "1":
         library.learn_combat(self)
