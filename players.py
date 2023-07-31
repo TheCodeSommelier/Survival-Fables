@@ -1,4 +1,7 @@
 import random
+from enums import *
+
+
 
 MATERIAL_REQUIREMENTS = {
   "Infirmary": {"wood": 50, "stone": 50},
@@ -58,7 +61,7 @@ class Survivors:
 
   def explore(self, hive, aliens, base):
     hive.spawn_aliens(aliens)
-    aliens.merge(aliens)
+    aliens.merge()
     gather_materials(base)
     
   def fight_aliens(self, aliens, player):
@@ -89,8 +92,8 @@ class Survivors:
         elif base.storage["wood"] >= 50 and base.storage["stone"] >= 50:
           base.infirmary = True
           subtract_materials(base, player_input, MATERIAL_REQUIREMENTS)
-          aliens.specs["mid"]["how_many"] += 1
-          print(f"\nCongrats you have built an Infirmary now you can heal and revive players! Also there is {aliens.specs['basic']['how_many']} of basic aliens, {aliens.specs['mid']['how_many']} of mid aliens and {aliens.specs['boss']['how_many']} of boss aliens.")
+          aliens.aliens[AlienType.MID].how_many += 1
+          print(f"\nCongrats you have built an Infirmary now you can heal and revive players! Also there is {aliens.aliens[AlienType.BASIC].how_many} of basic aliens, {aliens.aliens[AlienType.MID].how_many} of mid aliens and {aliens.aliens[AlienType.BOSS].how_many} of boss aliens.")
           break
         else:
           print("You don't have enough materials to build an Ifirmary...")
@@ -102,8 +105,8 @@ class Survivors:
         elif base.storage["stone"] >= 150 and base.storage["wood"] >= 150 and base.storage["iron"] >= 100:
           base.armoury = True
           subtract_materials(base, player_input, MATERIAL_REQUIREMENTS)
-          aliens.specs["mid"]["how_many"] += 1
-          print(f"\nCongrats you have built an Armoury you can now craft weapons and a bomb! Also there is {aliens.specs['basic']['how_many']} of basic aliens, {aliens.specs['mid']['how_many']} of mid aliens and {aliens.specs['boss']['how_many']} of boss aliens.")
+          aliens.aliens[AlienType.MID].how_many += 1
+          print(f"\nCongrats you have built an Armoury you can now craft weapons and a bomb! Also there is {aliens.aliens[AlienType.BASIC].how_many} of basic aliens, {aliens.aliens[AlienType.MID].how_many} of mid aliens and {aliens.aliens[AlienType.BOSS].how_many} of boss aliens.")
           break
         else:
           print("You don't have enough materials to build an Armoury...")
@@ -115,8 +118,8 @@ class Survivors:
         elif base.storage["wood"] >= 100 and base.storage["stone"] >= 100:
           base.library = True
           subtract_materials(base, player_input, MATERIAL_REQUIREMENTS)
-          aliens.specs["mid"]["how_many"] += 1
-          print(f"\nCongrats you have built a Library you can learn new skills now! Also there is {aliens.specs['basic']['how_many']} of basic aliens, {aliens.specs['mid']['how_many']} of mid aliens and {aliens.specs['boss']['how_many']} of boss aliens.")
+          aliens.aliens[AlienType.MID].how_many += 1
+          print(f"\nCongrats you have built a Library you can learn new skills now! Also there is {aliens.aliens[AlienType.BASIC].how_many} of basic aliens, {aliens.aliens[AlienType.MID].how_many} of mid aliens and {aliens.aliens[AlienType.BOSS].how_many} of boss aliens.")
           break
         else:
           print("You don't have enough materials to build a Library... ")

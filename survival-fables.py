@@ -2,7 +2,7 @@ from players import *
 
 from base_and_buildings import *
 
-from aliens import aliens
+from aliens import *
 
 from hive import Hive
 
@@ -12,10 +12,11 @@ import random
 
 # A solo standing function that starts a randomised attack on the base
 def random_base_attack(base, aliens, player):
-  numbers = [16, 33, 12, 42, 22]
-  random_number = random.randint(1, 50)
+  #numbers = [16, 33, 12, 42, 22]
+  numbers = [1, 2, 3]
+  random_number = random.randint(0, 5)
   if random_number in numbers:
-    aliens.attack_base(base, player, aliens)
+    aliens.attack_base(base, player)
 
 def help(player):
   while True:
@@ -122,6 +123,10 @@ for i in range(number_of_players):
 game_running = True
 while game_running:
 
+  basic_alien = aliens.aliens[AlienType.BASIC]
+  mid_alien = aliens.aliens[AlienType.MID]
+  boss_alien = aliens.aliens[AlienType.BOSS]
+
 
   for player in players.values():
     if not player.alive:
@@ -166,9 +171,9 @@ while game_running:
 
                  
     ============ Aliens stats ============
-    Basic: {aliens.specs['basic']['how_many']} and their damage is {aliens.specs['basic']['how_many'] * aliens.specs['basic']['damage']}
-    Middle: {aliens.specs['mid']['how_many']} and their damage is {aliens.specs['mid']['how_many'] * aliens.specs['mid']['damage']}
-    Boss: {aliens.specs['boss']['how_many']} and their damage is {aliens.specs['boss']['how_many'] * aliens.specs['boss']['damage']}
+    Basic: {basic_alien.how_many} and their damage is {basic_alien.how_many * basic_alien.damage}
+    Middle: {mid_alien.how_many} and their damage is {mid_alien.how_many * mid_alien.damage}
+    Boss: {boss_alien.how_many} and their damage is {boss_alien.how_many * boss_alien.damage}
 
     
     What do you want to do {player.name}? (Type a number below to make your choice of activity!)
