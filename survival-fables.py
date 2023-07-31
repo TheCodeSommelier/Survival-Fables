@@ -81,43 +81,35 @@ while game_running:
         
     # This is the player interface!
     choice = input(f"""
-    
-    ============ MANUAL ============
-    \nFight aliens - You have to fight aliens to keep them in check. If you won't they will grow in numbers and attack you!
-    \nBuilding - Armoury (lets you craft gear and upgrade defenses, this is how you craft a bomb) costs 150 of wood and stone 100 of iron.
-             - Infirmary (lets you heal and revive other players) costs 50 of wood and stone.
-             - Library (lets you learn skills) you can learn tracking or combat. Costs 100 of wood and stone. Combat ups your damage, tracking lets you collect more materials.
-             - WATCH OUT THOUGH!!! Every time you build a building a Middle level alien gets spawned!
-    \nCrafting - Once you have an Armoury you can choose to build a bunch of stuff
-                   1. Spear - Adds 20 to your damage and costs 20 of wood and stone
-                   2. Bow - Adds 30 to your damage and costs 30 of wood and stone
-                   3. Upgrade defences - Adds 30 to your base defenses and costs 30 wood and stone and 50 iron
-                   4. Bomb - Lets you attack the Hive and win the game and costs 150 minerals and 120 chemicals
-                   5. Armour - Adds armour to your 100 character and costs 20 stone and 30 iron
-    \nHealing - Once you have an infirmary you can heal yourself or revive dead players
-                   1. Heal - For 15 medicine you can add 20 hp to your health
-                   2. Revive a dead player - For 60 medicine you can revive a dead player
-    \nLearn - Once you have a Library you can actually just learn new skills free of charge
-                   1. Combat - You could learn combat (it adds 30 to your damage)
-                   2. Tracking - Gives you a higher probability of getting materials when you explore
-    \nAttack the hive - Once you have a bomb even just one you can start attacking th hive but carful you won't always get your way! You might not get the bomb in place if you die before! If you have two bombs in your 'bomb list' you might destroy the hive with one attack!
-                   
-    
-    
-    ============ NEW ROUND {player.name.upper()} IS PLAYING ============
-                   
-    You have {base.storage['wood']} of wood, {base.storage['stone']} of stone, {base.storage['iron']} of iron, {base.storage['medicine']} of medicine, {base.storage['minerals']} of minerals and {base.storage['chemicals']} of chemicals.
+  
+    NEW ROUND {player.name.upper()} IS PLAYING
 
-    You have these weapons {player.equipped_melee_weapon} and {player.equipped_ranged_weapon}, this is your damage {player.damage} and this is your health {player.health} and armour {player.armour}!
+    ============ Base stats ============
+    Storage - Wood: {base.storage['wood']}
+            - Stone: {base.storage['stone']}
+            - Iron: {base.storage['iron']}
+            - Medicine: {base.storage['medicine']}
+            - Minerals: {base.storage['minerals']}
+            - Chemicals: {base.storage['chemicals']}
 
-    You have these skills - Combat: {player.combat_skill}
-                          - Tracking: {player.tracking_skill}
+    ============ {player.name}'s stats ============
+    Player stats - Your damage {player.damage}
+                 - Your health {player.health}
+                 - Your armour {player.armour}
 
-    And there are these aliens in the world:
+    Your weapons: - Melee: {player.equipped_melee_weapon} 
+                  - Ranged: {player.equipped_ranged_weapon}
+                 
+    Your skills: - Combat: {player.combat_skill}
+                 - Tracking: {player.tracking_skill}
+
+                 
+    ============ Aliens stats ============
     Basic: {aliens.specs['basic']['how_many']} and their damage is {aliens.specs['basic']['how_many'] * aliens.specs['basic']['damage']}
     Middle: {aliens.specs['mid']['how_many']} and their damage is {aliens.specs['mid']['how_many'] * aliens.specs['mid']['damage']}
     Boss: {aliens.specs['boss']['how_many']} and their damage is {aliens.specs['boss']['how_many'] * aliens.specs['boss']['damage']}
 
+    
     What do you want to do {player.name}? (Type a number below to make your choice of activity!)
     
     1. Explore (that is how you get materials)

@@ -169,7 +169,7 @@ class Survivors:
           print("You don' have enough materials to craft a Bomb... ")
       elif player_input == "Armour":
         if base.storage["stone"] >= 20 and base.storage["iron"] >= 30:
-          armoury.craft_armour(self, player, 100, base)
+          armoury.craft_armour(player, 100, base)
         else:
           print("You don't have enough materials to craft Armour...")
       elif player_input == "Nothing":

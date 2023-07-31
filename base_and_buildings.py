@@ -19,11 +19,19 @@ class Building:
         for material, amount in MATERIAL_REQUIREMENTS[weapon_name].items():
           base.storage[material] -= amount
         
-        if weapon_name == "Spear" or weapon_name == "Knife" or weapon_name == "Bow" or weapon_name == "Gun":
-          player.equipped_melee_weapon = weapon_name if weapon_name == "Spear" or weapon_name == "Knife" else None
-          player.equipped_ranged_weapon = weapon_name if weapon_name == "Bow" or weapon_name == "Gun" else None
-          player.damage += damage_bonus
-          print(f"{player.name} has crafted a {weapon_name}")
+        if weapon_name in {"Spear", "Knife", "Bow", "Gun"}:
+          if player.equipped_melee_weapon == "Spear":
+            damage_bonus -= 20
+          elif player.equipped_ranged_weapon == "Bow":
+            damage_bonus -= 30
+        
+          player.equipped_melee_weapon = weapon_name if weapon_name in {"Spear", "Knife"} else None
+          player.equipped_ranged_weapon = weapon_name if weapon_name in {"Bow", "Gun"} else None
+
+          if weapon_name:
+            player.damage += damage_bonus
+          
+          print(f"{player.name} has crafted a {weapon_name}. Their damage is {player.damage}.")
         else:
           player.bomb.append(weapon_name)
           print(f"{player.name} has crafted a {weapon_name}. There are {len(player.bomb)} {weapon_name}s in the Armoury! ")
@@ -34,7 +42,7 @@ class Building:
 
   def craft_armour(self, player, armour_value, base):
     if player.armour < armour_value:
-      if "Armour" in MATERIAL_REQUIREMENTS and all(material in base.storage and player.base.storage[material] >= amount for material, amount in MATERIAL_REQUIREMENTS["Armour"].items()):
+      if "Armour" in MATERIAL_REQUIREMENTS and all(material in base.storage and base.storage[material] >= amount for material, amount in MATERIAL_REQUIREMENTS["Armour"].items()):
         for material, amount in MATERIAL_REQUIREMENTS["Armour"].items():
           base.storage[material] -= amount
 
