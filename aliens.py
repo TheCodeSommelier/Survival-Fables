@@ -19,9 +19,9 @@ class Aliens:
 
   
   def merge(self): # Based on a result of the merge we'll create a color size attr
-    if self.aliens[AlienType.BASIC].how_many >= 10:
+    if self.aliens[AlienType.BASIC].how_many >= 20:
       self.aliens[AlienType.MID].how_many += 1
-      self.aliens[AlienType.BASIC].how_many -= 10
+      self.aliens[AlienType.BASIC].how_many -= 20
       print(f"\nAliens now have {self.aliens[AlienType.MID].how_many} of a Mid level alien. Start killing them before they make a Boss!")
     elif self.aliens[AlienType.MID].how_many >= 10:
       self.aliens[AlienType.BOSS].how_many += 1

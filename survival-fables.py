@@ -12,9 +12,8 @@ import random
 
 # A solo standing function that starts a randomised attack on the base
 def random_base_attack(base, aliens, player):
-  #numbers = [16, 33, 12, 42, 22]
-  numbers = [1, 2, 3, 4, 5, 6]
-  random_number = random.randint(1, 10)
+  numbers = [16, 33, 12, 42, 22]
+  random_number = random.randint(1, 60)
   if random_number in numbers:
     aliens.attack_base(base, player)
 
@@ -169,7 +168,6 @@ while game_running:
     Your skills: - Combat: {player.combat_skill}
                  - Tracking: {player.tracking_skill}
 
-                 
     ============ Aliens stats ============
     Basic - Damage: {basic_alien.how_many * basic_alien.damage}
           - Health: {basic_alien.how_many * basic_alien.health}
@@ -185,7 +183,6 @@ while game_running:
 
     Hive - Health: {hive.hp}
 
-    
     What do you want to do {player.name}? (Type a number below to make your choice of activity!)
     
     1. Explore (that is how you get materials)
