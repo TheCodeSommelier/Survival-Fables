@@ -68,7 +68,7 @@ class Infirmary(Building):
       if player.name == other_player:
         if player.health == 0:
           player.health = 20
-          print(f"{other_player} has been revived! well done {player.name}! ")
+          print(f"You have revived {other_player}! Well done! ")
         else:
           print("\nTo revive a player they need to be dead first... ")
     

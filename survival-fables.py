@@ -13,8 +13,8 @@ import random
 # A solo standing function that starts a randomised attack on the base
 def random_base_attack(base, aliens, player):
   #numbers = [16, 33, 12, 42, 22]
-  numbers = [1, 2, 3]
-  random_number = random.randint(0, 5)
+  numbers = [1, 2, 3, 4, 5, 6]
+  random_number = random.randint(1, 10)
   if random_number in numbers:
     aliens.attack_base(base, player)
 
@@ -34,20 +34,20 @@ def help(player):
 
     if help_menu == "1":
       print("""\nIn the beginning you can really do only two things explore or fight aliens. 
-      We highly recommend exploration as that is how you get materials. Just remeber to fight every now and then,
-      otherwise the aliens will be spawning and merging endlessly. So start with exploring and take it from there!""")
+We highly recommend exploration as that is how you get materials. Just remeber to fight every now and then,
+otherwise the aliens will be spawning and merging endlessly. So start with exploring and take it from there!""")
       break
     elif help_menu == "2":
       print(f"""\nFighting aliens is pretty straight forward in this game.
-      Everytime you explore 1 basic alien spawns every 10 basic = 1 mid, every 10 mid = 1 boss. 
-      If your damage is higher then the aliens health you kill them and if it is high enough 
-      to cover all of the health of all the aliens, you kill them all. Try to fight often, 
-      as it will make your game easier. """)
+Everytime you explore 1 basic alien spawns every 10 basic = 1 mid, every 10 mid = 1 boss. 
+If your damage is higher then the aliens health you kill them and if it is high enough 
+to cover all of the health of all the aliens, you kill them all. Try to fight often, 
+as it will make your game easier. """)
       break
     elif help_menu == "3":
       print("""\nYou need buidings to be able to craft (Armoury), learn (Library), heal (Infirmary) and revive (Infirmary). 
-      So definitely BUILD! Just keep in mind that for every building you build 1 mid alien spawns.
-      Requirements: 
+So definitely BUILD! Just keep in mind that for every building you build 1 mid alien spawns.
+Requirements: 
       """)
       for building in MATERIAL_REQUIREMENTS.keys():
         if building in {"Infirmary", "Armoury", "Library"}:
@@ -55,8 +55,8 @@ def help(player):
       break
     elif help_menu == "4":
       print(f"""\nTo craft anything you need an Armoury first. 
-      Once you have it you can craft these weapons and upgrades.
-      Requirements:
+Once you have it you can craft these weapons and upgrades.
+Requirements:
       """)
       for item, requirements in MATERIAL_REQUIREMENTS.items():
         if item in {"Spear", "Bow", "Knife", "Gun", "Upgrade defenses", "Bomb", "Armour",}:
@@ -64,8 +64,8 @@ def help(player):
       break
     elif help_menu == "5":
       print("""\nIf you have a bomb you can attack the hive. Success rate is randomised so you never know...
-      You need two bombs to destroy the hive completely in single go (Attack needs to be successful). 
-      Once you destroy the hive either in multiple attacks or in a single go you win!""")
+You need two bombs to destroy the hive completely in single go (Attack needs to be successful). 
+Once you destroy the hive either in multiple attacks or in a single go you win!""")
       break
     elif help_menu == "6":
       print(f"""\nIf a player dies you can revive them for 60 medicine. It will add 20 hp to their health. """)
@@ -75,19 +75,19 @@ def help(player):
       break
     elif help_menu == "8":
       print(f"""\nIf you have a library built you can learn new skills 'Combat' will increase your damage
-      and 'Tracking' will increase the probability of finding materials when exploring. """)
+and 'Tracking' will increase the probability of finding materials when exploring. """)
       break
     elif help_menu == "9":
       break
 
 
 base = Base({
-  "wood": 1000,
-  "stone": 1000,
-  "iron": 1000,
-  "medicine": 1000,
-  "minerals": 1000,
-  "chemicals": 1000
+  "wood": 20,
+  "stone": 20,
+  "iron": 10,
+  "medicine": 10,
+  "minerals": 0,
+  "chemicals": 0
 })
 infirmary = Infirmary()
 armoury = Armoury()
@@ -171,9 +171,19 @@ while game_running:
 
                  
     ============ Aliens stats ============
-    Basic: {basic_alien.how_many} and their damage is {basic_alien.how_many * basic_alien.damage}
-    Middle: {mid_alien.how_many} and their damage is {mid_alien.how_many * mid_alien.damage}
-    Boss: {boss_alien.how_many} and their damage is {boss_alien.how_many * boss_alien.damage}
+    Basic - Damage: {basic_alien.how_many * basic_alien.damage}
+          - Health: {basic_alien.how_many * basic_alien.health}
+          - Quantity: {basic_alien.how_many}
+
+    Middle - Damage: {mid_alien.how_many * mid_alien.damage}
+           - Health: {mid_alien.how_many * mid_alien.health}
+           - Quantity: {mid_alien.how_many} 
+
+    Boss - Damage: {boss_alien.how_many * boss_alien.damage}
+         - Health: {boss_alien.how_many * boss_alien.health}
+         - Quantity: {boss_alien.how_many} 
+
+    Hive - Health: {hive.hp}
 
     
     What do you want to do {player.name}? (Type a number below to make your choice of activity!)
@@ -219,6 +229,5 @@ while game_running:
       print("\nInvalid choice try again.")
 
 
-    if not player.alive:
-      player.alive = False
-  
+  if not player.alive:
+    player.alive = False

@@ -34,21 +34,26 @@ class Aliens:
   def die_or_hurt(self, total_player_damage):
     for alien in self.aliens.values():
       if alien.how_many > 0:
-        remainder = total_player_damage // (alien.health * alien.how_many)
-        if remainder > alien.how_many:
+        dealable_damage = alien.health * alien.how_many
+        if total_player_damage >= dealable_damage:
           alien.how_many = 0
         else:
-          alien.how_many -= remainder
+          remaining_damage = dealable_damage - total_player_damage
+          remaining_aliens = (remaining_damage - 1) // alien.health + 1
+          alien.how_many = remaining_aliens
+
 
   
   def die_or_hurt_base(self, total_base_damage):
     for alien in self.aliens.values():
       if alien.how_many > 0:
-        remainder = total_base_damage // alien.health
-        if remainder > 0:
+        dealable_damage = alien.health * alien.how_many
+        if total_base_damage > dealable_damage:
           alien.how_many = 0
         else:
-          alien.how_many -= remainder
+          remaining_damage = dealable_damage - total_base_damage
+          remaining_aliens = (remaining_damage - 1) // alien.health + 1
+          alien.how_many = remaining_aliens
         
   
 
@@ -71,7 +76,6 @@ class Aliens:
       player.health -= total_alien_damage
       if player.health <= 0:
         player.health = 0
-        player.alive = False
         print(f"\n{player.name} died... Revive them!")
 
 

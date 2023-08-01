@@ -46,18 +46,18 @@ def gather_materials(base):
 
 # This class are essentially the players
 class Survivors:
-  def __init__(self, name, bomb=[], armour=0, health=100, alive=True, damage=40, end=False):
+  def __init__(self, name, bomb=[], armour=0, health=100, damage=40, end=False):
     self.name = name # String for the survivors name
     self.bomb = bomb # A list of bombs. Bombs can be crafted in an armoury!
     self.armour = armour # Integer symbolising armour
     self.health = health # Integer symbolising health
-    self.alive = alive # Boolean value symbolising if the person is alive
     self.damage = damage # Integer symbolising the damage the person can deal
     self.end = end # Yes or No value based on player input
     self.equipped_melee_weapon = None # This determines if a melee weapon is equipped or not
     self.equipped_ranged_weapon = None # This determines if a ranged weapon is equipped or not
     self.combat_skill = None
     self.tracking_skill = None
+    self.alive = health > 0 
 
   def explore(self, hive, aliens, base):
     hive.spawn_aliens(aliens)
@@ -93,7 +93,7 @@ class Survivors:
           base.infirmary = True
           subtract_materials(base, player_input, MATERIAL_REQUIREMENTS)
           aliens.aliens[AlienType.MID].how_many += 1
-          print(f"\nCongrats you have built an Infirmary now you can heal and revive players! Also there is {aliens.aliens[AlienType.BASIC].how_many} of basic aliens, {aliens.aliens[AlienType.MID].how_many} of mid aliens and {aliens.aliens[AlienType.BOSS].how_many} of boss aliens.")
+          print(f"\nCongrats you have built an Infirmary now you can heal and revive players! ")
           break
         else:
           print("You don't have enough materials to build an Ifirmary...")
@@ -106,7 +106,7 @@ class Survivors:
           base.armoury = True
           subtract_materials(base, player_input, MATERIAL_REQUIREMENTS)
           aliens.aliens[AlienType.MID].how_many += 1
-          print(f"\nCongrats you have built an Armoury you can now craft weapons and a bomb! Also there is {aliens.aliens[AlienType.BASIC].how_many} of basic aliens, {aliens.aliens[AlienType.MID].how_many} of mid aliens and {aliens.aliens[AlienType.BOSS].how_many} of boss aliens.")
+          print(f"\nCongrats you have built an Armoury you can now craft weapons and a bomb! ")
           break
         else:
           print("You don't have enough materials to build an Armoury...")
@@ -119,7 +119,7 @@ class Survivors:
           base.library = True
           subtract_materials(base, player_input, MATERIAL_REQUIREMENTS)
           aliens.aliens[AlienType.MID].how_many += 1
-          print(f"\nCongrats you have built a Library you can learn new skills now! Also there is {aliens.aliens[AlienType.BASIC].how_many} of basic aliens, {aliens.aliens[AlienType.MID].how_many} of mid aliens and {aliens.aliens[AlienType.BOSS].how_many} of boss aliens.")
+          print(f"\nCongrats you have built a Library you can learn new skills now! ")
           break
         else:
           print("You don't have enough materials to build a Library... ")
