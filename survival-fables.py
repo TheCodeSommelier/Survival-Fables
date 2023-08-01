@@ -131,17 +131,6 @@ while game_running:
     if not player.alive:
       continue
 
-    if hive.hp <= 0 or all(player.end == True for player in players.values()):
-      print("Thank you for playing Survival Fables the game is now over! 🙏 ")
-      game_running = False
-      break
-    elif all(player.alive == False for player in players.values()):
-      print("""All players have died! 
-      Thank you for playing Survival Fables the game is now over! 🙏 """)
-      game_running = False
-      break
-
-
     random_base_attack(base, aliens, player)
         
     # This is the player interface!
@@ -150,6 +139,8 @@ while game_running:
     NEW ROUND {player.name.upper()} IS PLAYING
 
     ============ Base stats ============
+    Defences - {base.defenses}
+    
     Storage - Wood: {base.storage['wood']}
             - Stone: {base.storage['stone']}
             - Iron: {base.storage['iron']}
@@ -226,5 +217,12 @@ while game_running:
       print("\nInvalid choice try again.")
 
 
-  if not player.alive:
-    player.alive = False
+  if hive.hp <= 0 or all(player.end == True for player in players.values()):
+      print("Thank you for playing Survival Fables the game is now over! 🙏 ")
+      game_running = False
+      break
+  elif all(player.alive == False for player in players.values()):
+    print("""All players have died! 
+    Thank you for playing Survival Fables the game is now over! 🙏 """)
+    game_running = False
+    break

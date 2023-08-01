@@ -57,7 +57,10 @@ class Survivors:
     self.equipped_ranged_weapon = None # This determines if a ranged weapon is equipped or not
     self.combat_skill = None
     self.tracking_skill = None
-    self.alive = health > 0 
+    self.update_alive_status()
+
+  def update_alive_status(self):
+    self.alive = self.health > 0 
 
   def explore(self, hive, aliens, base):
     hive.spawn_aliens(aliens)
@@ -65,7 +68,8 @@ class Survivors:
     gather_materials(base)
     
   def fight_aliens(self, aliens, player):
-    aliens.attack(player)
+    aliens.defend(player)
+    self.update_alive_status()
     if not self.alive:
       print(f"\n{self.name} has died! Revive them! ")
     else:
@@ -187,9 +191,8 @@ class Survivors:
       print(f"{player.name}, you can't attack the hive beacuse you don't have a bomb...")
       return
     
-
     aliens.attack(self)
-
+    self.update_alive_status()
     if not self.alive:
         success = [1, 3, 5, 7, 8, 9, 10]
         rand_num = random.randint(1, 10)
@@ -235,6 +238,7 @@ class Survivors:
       if base.infirmary == True and base.storage["medicine"] >= 60:
         base.storage["medicine"] -= 60
         infirmary.revive(other_player, players)
+        self.update_alive_status()
       elif base.infirmary == True and base.storage["medicine"] < 60:
         print("\nYou don't have enough medicine!!")
     else:
@@ -245,6 +249,7 @@ class Survivors:
       if base.storage["medicine"] >= 15:
         base.storage["medicine"] -= 15
         infirmary.heal(self)
+        self.update_alive_status()
         print(f"\nYour HP is {self.health}!")
       elif base.storage["medicine"] < 15:
         print("\nYou don't have enough medicine...")
