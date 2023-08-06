@@ -85,8 +85,8 @@ base = Base({
   "stone": 20,
   "iron": 10,
   "medicine": 10,
-  "minerals": 10000,
-  "chemicals": 10000
+  "minerals": 0,
+  "chemicals": 0
 })
 infirmary = Infirmary()
 armoury = Armoury()
