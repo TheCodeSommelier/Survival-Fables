@@ -1,5 +1,5 @@
 
-from players import MATERIAL_REQUIREMENTS
+from players import *
 
 
 class Base:
@@ -24,10 +24,12 @@ class Building:
             damage_bonus -= 20
           elif player.equipped_ranged_weapon == "Bow":
             damage_bonus -= 30
-        
-          player.equipped_melee_weapon = weapon_name if weapon_name in {"Spear", "Knife"} else None
-          player.equipped_ranged_weapon = weapon_name if weapon_name in {"Bow", "Gun"} else None
 
+          if weapon_name in {"Spear", "Knife"}:
+            player.equipped_melee_weapon = weapon_name
+          elif weapon_name in {"Bow", "Gun"}:
+            player.equipped_ranged_weapon = weapon_name
+          
           if weapon_name:
             player.damage += damage_bonus
           
@@ -68,6 +70,7 @@ class Infirmary(Building):
       if player.name == other_player:
         if player.health == 0:
           player.health = 20
+          players[other_player].alive = True
           print(f"You have revived {other_player}! Well done! ")
         else:
           print("\nTo revive a player they need to be dead first... ")

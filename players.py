@@ -59,14 +59,17 @@ class Survivors:
     self.tracking_skill = None
     self.update_alive_status()
 
+
   def update_alive_status(self):
     self.alive = self.health > 0 
+
 
   def explore(self, hive, aliens, base):
     hive.spawn_aliens(aliens)
     aliens.merge()
     gather_materials(base)
     
+
   def fight_aliens(self, aliens, player):
     aliens.defend(player)
     self.update_alive_status()
@@ -75,6 +78,7 @@ class Survivors:
     else:
       print(f"\n{self.name} you have survived your HP is at a {self.health}! ")
     
+
   def build(self, base, aliens, hive):
     while True:
 
@@ -137,6 +141,7 @@ class Survivors:
       else:
         print("\nInvalid input... Please type a valid input 'Infirmary', 'Armoury', 'Library or 'Nothing'. ")
 
+
   def craft_gear(self, base, armoury, player):
     player_input = input("""\nWhat do you want to craft? 
     Type either:
@@ -189,8 +194,9 @@ class Survivors:
     else:
       print("\nYou don't have an Armoury. You can build it for 150 wood, 150 stone and 100 iron. ")
 
+
   def attack_the_hive(self, aliens, hive, player):
-    if "bomb" not in self.bomb:
+    if "Bomb" not in self.bomb:
       print(f"{player.name}, you can't attack the hive beacuse you don't have a bomb...")
       return
     
@@ -200,39 +206,39 @@ class Survivors:
         success = [1, 3, 5, 7, 8, 9, 10]
         rand_num = random.randint(1, 10)
         if rand_num in success and self.bomb.count("bomb") == 2:
-            while "bomb" in self.bomb:
-                self.bomb.remove("bomb")
+            while "Bomb" in self.bomb:
+                self.bomb.remove("Bomb")
             hive.hp -= 1000
             print(f"\nYou have destroyed the Hive {self.name}, but you have died trying! The survivors have won!! The remaining aliens die with horriffing screams and you can finally breathe. It's over...")
         elif rand_num in success and self.bomb.count("bomb") == 1 and hive.hp == 1000:
-            self.bomb.remove("bomb")
+            self.bomb.remove("Bomb")
             hive.hp -= 500
             print(f"\nYou have dealt some damage to the hive, but you died trying {self.name}. One more attack like this and the Hive will fall!")
         elif rand_num in success and self.bomb.count("bomb") == 1 and hive.hp == 500:
-            self.bomb.remove("bomb")
+            self.bomb.remove("Bomb")
             hive.hp -= 500
             print(f"\nYou have destroyed the Hive {self.name}, but you have died trying! The survivors have won!! The remaining aliens die with horrifying screams. It's over...")
         elif rand_num not in success:
-            self.bomb.remove("bomb")
+            self.bomb.remove("Bomb")
             print(f"\nYour attack failed... You didn't do any damage to the hive... And you died...")
     else:
         success = [1, 5, 10, 15, 20]
         rand_num = random.randint(1, 20)
-        if rand_num in success and self.bomb.count("bomb") == 2:
-          while "bomb" in self.bomb:
-            self.bomb.remove("bomb")
+        if rand_num in success and self.bomb.count("Bomb") == 2:
+          while "Bomb" in self.bomb:
+            self.bomb.remove("Bomb")
           hive.hp -= 1000
           print(f"\nYou have destroyed the Hive {self.name}! You win!! The remaining aliens die with horrifying screams and you can finally breathe. It's over... ")
-        elif rand_num in success and self.bomb.count("bomb") == 1 and hive.hp == 1000:
-          self.bomb.remove("bomb")
+        elif rand_num in success and self.bomb.count("Bomb") == 1 and hive.hp == 1000:
+          self.bomb.remove("Bomb")
           hive.hp -= 500
           print(f"\nYou have dealt some damage to the hive {self.name}. One more attack like this and the Hive will fall! Your HP is {self.health}")
-        elif rand_num in success and self.bomb.count("bomb") == 1 and hive.hp == 500:
-            self.bomb.remove("bomb")
+        elif rand_num in success and self.bomb.count("Bomb") == 1 and hive.hp == 500:
+            self.bomb.remove("Bomb")
             hive.hp -= 500
             print(f"\nYou have destroyed the Hive {self.name}! You win!! The remaining aliens die with horrifying screams and you can finally breathe. It's over... ")
         elif rand_num not in success:
-            self.bomb.remove("bomb")
+            self.bomb.remove("Bomb")
             print(f"\nYour attack failed... You didn't do any damage to the hive... Your HP is {self.health}")
           
 
@@ -246,7 +252,8 @@ class Survivors:
         print("\nYou don't have enough medicine!!")
     else:
       print("\nTo heal or save players you need to first build an Infirmary!")
-      
+
+
   def heal_player(self, base, infirmary): 
     if base.infirmary:
       if base.storage["medicine"] >= 15:
@@ -258,7 +265,8 @@ class Survivors:
         print("\nYou don't have enough medicine...")
     else:
       print("\nTo heal or save players you need to first build an Infirmary!")
-    
+
+
   def learn(self, base, library):
     if base.library:
       input_p = input("""\nWhat do you want to learn? 

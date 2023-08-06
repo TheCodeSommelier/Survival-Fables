@@ -81,12 +81,12 @@ and 'Tracking' will increase the probability of finding materials when exploring
 
 
 base = Base({
-  "wood": 20,
-  "stone": 20,
-  "iron": 10,
-  "medicine": 10,
-  "minerals": 0,
-  "chemicals": 0
+  "wood": 10000,
+  "stone": 10000,
+  "iron": 10000,
+  "medicine": 10000,
+  "minerals": 10000,
+  "chemicals": 10000
 })
 infirmary = Infirmary()
 armoury = Armoury()
