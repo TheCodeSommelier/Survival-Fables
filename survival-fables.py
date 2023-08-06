@@ -194,7 +194,7 @@ while game_running:
     elif choice == "2":
       player.fight_aliens(aliens, player)
     elif choice == "3":
-      player.build(base, hive, aliens)
+      player.build(base, hive)
     elif choice == "4":
       player.craft_gear(base, armoury, player)
     elif choice == "5":
@@ -218,9 +218,9 @@ while game_running:
 
 
   if hive.hp <= 0 or all(player.end == True for player in players.values()):
-      print("Thank you for playing Survival Fables the game is now over! 🙏 ")
-      game_running = False
-      break
+    print("Thank you for playing Survival Fables the game is now over! 🙏 ")
+    game_running = False
+    break
   elif all(player.alive == False for player in players.values()):
     print("""All players have died! 
     Thank you for playing Survival Fables the game is now over! 🙏 """)

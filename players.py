@@ -75,7 +75,7 @@ class Survivors:
     else:
       print(f"\n{self.name} you have survived your HP is at a {self.health}! ")
     
-  def build(self, base, hive, aliens):
+  def build(self, base, aliens):
     while True:
 
       for material, amount in base.storage.items():
