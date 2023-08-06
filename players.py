@@ -96,7 +96,8 @@ class Survivors:
         elif base.storage["wood"] >= 50 and base.storage["stone"] >= 50:
           base.infirmary = True
           subtract_materials(base, player_input, MATERIAL_REQUIREMENTS)
-          hive.spawn_aliens(aliens)
+          for i in range(0, 4):
+            hive.spawn_aliens(aliens)
           print(f"\nCongrats you have built an Infirmary now you can heal and revive players! ")
           break
         else:
@@ -109,7 +110,8 @@ class Survivors:
         elif base.storage["stone"] >= 150 and base.storage["wood"] >= 150 and base.storage["iron"] >= 100:
           base.armoury = True
           subtract_materials(base, player_input, MATERIAL_REQUIREMENTS)
-          hive.spawn_aliens(aliens)
+          for i in range(0, 4):
+            hive.spawn_aliens(aliens)
           print(f"\nCongrats you have built an Armoury you can now craft weapons and a bomb! ")
           break
         else:
@@ -122,7 +124,8 @@ class Survivors:
         elif base.storage["wood"] >= 100 and base.storage["stone"] >= 100:
           base.library = True
           subtract_materials(base, player_input, MATERIAL_REQUIREMENTS)
-          hive.spawn_aliens(aliens)
+          for i in range(0, 4):
+            hive.spawn_aliens(aliens)
           print(f"\nCongrats you have built a Library you can learn new skills now! ")
           break
         else:

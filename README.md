@@ -19,7 +19,9 @@ Venture out to explore the world and gather essential materials. Be prepared for
 
 ## Alien Threats
 
-With each exploration, one basic alien will spawn. As you gather more materials, the aliens will grow stronger and merge into more formidable foes. Keep a close eye on them, as they may attack your base at random intervals.
+With each exploration, one basic alien will spawn. As you gather more materials, the aliens will grow stronger and merge into better aliens (15 Basic aliens form 1 Middle alien and 10 Middle level aliens form 1 Boss alien). Keep a close eye on them, as they may attack your base at random intervals.
+
+**Boss level aliens are killable only with combat expert skill, knife and a gun.** 
 
 ## Building Your Base
 
