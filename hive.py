@@ -7,4 +7,4 @@ class Hive:
     self.hp = 1000
 
   def spawn_aliens(self, aliens):
-    aliens.aliens[AlienType.BASIC].how_many += 1
+    aliens.aliens[AlienType.BASIC].how_many += 3

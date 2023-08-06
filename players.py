@@ -75,7 +75,7 @@ class Survivors:
     else:
       print(f"\n{self.name} you have survived your HP is at a {self.health}! ")
     
-  def build(self, base, aliens):
+  def build(self, base, aliens, hive):
     while True:
 
       for material, amount in base.storage.items():
@@ -96,7 +96,7 @@ class Survivors:
         elif base.storage["wood"] >= 50 and base.storage["stone"] >= 50:
           base.infirmary = True
           subtract_materials(base, player_input, MATERIAL_REQUIREMENTS)
-          aliens.aliens[AlienType.MID].how_many += 1
+          hive.spawn_aliens(aliens)
           print(f"\nCongrats you have built an Infirmary now you can heal and revive players! ")
           break
         else:
@@ -109,7 +109,7 @@ class Survivors:
         elif base.storage["stone"] >= 150 and base.storage["wood"] >= 150 and base.storage["iron"] >= 100:
           base.armoury = True
           subtract_materials(base, player_input, MATERIAL_REQUIREMENTS)
-          aliens.aliens[AlienType.MID].how_many += 1
+          hive.spawn_aliens(aliens)
           print(f"\nCongrats you have built an Armoury you can now craft weapons and a bomb! ")
           break
         else:
@@ -122,7 +122,7 @@ class Survivors:
         elif base.storage["wood"] >= 100 and base.storage["stone"] >= 100:
           base.library = True
           subtract_materials(base, player_input, MATERIAL_REQUIREMENTS)
-          aliens.aliens[AlienType.MID].how_many += 1
+          hive.spawn_aliens(aliens)
           print(f"\nCongrats you have built a Library you can learn new skills now! ")
           break
         else:

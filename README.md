@@ -25,11 +25,14 @@ With each exploration, one basic alien will spawn. As you gather more materials,
 
 Construct vital buildings to enhance your chances of survival:
 
-1. **Armoury:** Allows you to craft powerful gear, upgrade defenses, and build bombs to attack the Hive. Be careful, though, as building the Armoury attracts more dangerous mid-level aliens!
+1. **Armoury:** Allows you to craft powerful gear, upgrade defenses, and build bombs to attack the Hive.
 
 2. **Infirmary:** Heal and revive other players in your team. This facility is crucial for keeping your team in top shape during battles.
 
 3. **Library:** Learn new skills like combat and tracking. Combat skills increase your damage output, while tracking skills boost the materials you find during exploration.
+
+**!!Warning!!**
+*For each building you biuld 3 Basic aliens spawn!*
 
 ## Crafting Essential Gear
 
@@ -39,11 +42,15 @@ Once you have an Armoury, you can craft valuable gear:
 
 2. **Bow:** Increases your damage by 30. Gather 30 wood and 30 stone to craft it.
 
-3. **Upgrade Defenses:** Bolster your base defenses by 30 points. It requires 30 wood, 30 stone, and 50 iron to craft.
+3. **Knife:** Adds 50 to your damage. Gather 50 iron to craft it.
 
-4. **Bomb:** Craft bombs to attack the Hive and win the game! Each bomb requires 150 minerals and 120 chemicals. You'll need two bombs to successfully destroy the Hive and secure victory.
+4. **Gun:** Increases your damage by 80. Craft it using 80 iron and 30 chemicals.
 
-5. **Armour:** Add protection to your character with armor. Craft it using 20 stone and 30 iron.
+5. **Upgrade Defenses:** Bolster your base defenses by 30 points. It requires 30 wood, 30 stone, and 50 iron to craft.
+
+6. **Bomb:** Craft bombs to attack the Hive and win the game! Each bomb requires 150 minerals and 120 chemicals. You'll need two bombs to successfully destroy the Hive and secure victory.
+
+7. **Armour:** Add protection to your character with armor. Craft it using 20 stone and 30 iron.
 
 ## Healing and Reviving
 

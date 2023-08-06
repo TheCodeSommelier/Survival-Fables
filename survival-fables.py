@@ -45,7 +45,7 @@ as it will make your game easier. """)
       break
     elif help_menu == "3":
       print("""\nYou need buidings to be able to craft (Armoury), learn (Library), heal (Infirmary) and revive (Infirmary). 
-So definitely BUILD! Just keep in mind that for every building you build 1 mid alien spawns.
+So definitely BUILD! Just keep in mind that for every building you build 3 basic aliens spawn.
 Requirements: 
       """)
       for building in MATERIAL_REQUIREMENTS.keys():
@@ -194,7 +194,7 @@ while game_running:
     elif choice == "2":
       player.fight_aliens(aliens, player)
     elif choice == "3":
-      player.build(base, hive)
+      player.build(base, aliens, hive)
     elif choice == "4":
       player.craft_gear(base, armoury, player)
     elif choice == "5":
