@@ -213,11 +213,14 @@ while game_running:
         end = input(f"Are you sure you want to end the game {player.name}? (Yes/No) ")
         if end.capitalize() == "Yes":
           player.end = True
+      game_running = False
+      print("Thank you for playing Survival Fables the game is now over! 🙏 ")
+      break
     else:
       print("\nInvalid choice try again.")
 
 
-  if hive.hp <= 0 or all(player.end == True for player in players.values()):
+  if hive.hp <= 0:
     print("Thank you for playing Survival Fables the game is now over! 🙏 ")
     game_running = False
     break
