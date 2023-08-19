@@ -21,10 +21,10 @@ MATERIAL_REQUIREMENTS = {
 MATERIAL_MULTIPLIER = {
   "wood": 1,
   "stone": 1,
-  "iron": 0.5,
-  "medicine": 0.5,
-  "minerals": 1/3,
-  "chemicals": 1/3
+  "iron": 0.8,
+  "medicine": 1,
+  "minerals": 0.5,
+  "chemicals": 0.4
 }
 
 

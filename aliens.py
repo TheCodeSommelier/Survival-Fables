@@ -67,12 +67,13 @@ class Aliens:
 
   
   def take_damage_from_base(self, total_base_damage):
-    for i in range(0, total_base_damage // 10):
+    for _ in range(total_base_damage // 10):
       for alien_type, alien in self.aliens.items():
-        while alien.health > 0:
+        if alien.how_many > 0:
           alien.health -= total_base_damage
-          if alien.health <= 0 and self.aliens[alien_type].how_many > 0:
-            self.aliens[alien_type].how_many -= 1
+          if alien.health <= 0:
+            alien.health = 0
+            alien.how_many -= 1
           break
       self.aliens[AlienType.BASIC].health = 10
       self.aliens[AlienType.MID].health = 40
@@ -110,36 +111,33 @@ class Aliens:
     number_of_aliens = sum(alien.how_many for alien in self.aliens.values())
     total_base_damage = base.defenses
     total_alien_damage = sum(alien.damage * alien.how_many for alien in self.aliens.values())
-    
-    if number_of_aliens == 0:
-      pass
-      if base.defenses > 0:
-        number_of_players = len(players.keys())
-        alien_damage = sum(alien.damage * alien.how_many for alien in self.aliens.values())
-        remaining_damage = min(base.defenses, total_alien_damage)
-        base.defenses -= remaining_damage
-        self.take_damage_from_base(total_base_damage)
-        if base.defenses <= 0:
-          base.defenses = 0
-          damage_to_be_dealt = alien_damage / number_of_players
-          for player in players.values():
-            player.health -= damage_to_be_dealt
-            player.update_alive_status()
-          for material in base.storage.keys():
-            base.storage[material] = int(base.storage[material] / 2)
-          print("\nYour base defenses have been destroyed, your storage has been raided... FIGHT FOR YOUR LIFE!")
-        else:
-          print(f"\nGood you fought them off! You have {base.defenses} of your defense left!")
-      
-
-      for alien_type, alien in self.aliens.items():
-        print(f"\nNumber of {alien_type} aliens left: {alien.how_many}!")
-      
-      else:
+    if number_of_aliens == 0:    
+      return
+    if base.defenses > 0:
+      number_of_players = len(players.keys())
+      alien_damage = sum(alien.damage * alien.how_many for alien in self.aliens.values())
+      remaining_damage = min(base.defenses, total_alien_damage)
+      base.defenses -= remaining_damage
+      self.take_damage_from_base(total_base_damage)
+      if base.defenses <= 0:
+        base.defenses = 0
+        damage_to_be_dealt = alien_damage / number_of_players
+        for player in players.values():
+          player.health -= damage_to_be_dealt
+          player.update_alive_status()
         for material in base.storage.keys():
           base.storage[material] = int(base.storage[material] / 2)
-        self.attack(player)
         print("\nYour base defenses have been destroyed, your storage has been raided... FIGHT FOR YOUR LIFE!")
+      else:
+        print(f"\nGood you fought them off! You have {base.defenses} of your defense left!")
+      
+
+    for alien_type, alien in self.aliens.items():
+      print(f"\nNumber of {alien_type} aliens left: {alien.how_many}!")
+    
+    else:
+      self.attack(player)
+      print("\nYour base defenses have been destroyed, your storage has been raided... FIGHT FOR YOUR LIFE!")
       
 
 aliens = Aliens()
