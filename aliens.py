@@ -37,7 +37,7 @@ class Aliens:
       self.aliens[AlienType.MID].how_many -= 10
       print(f"\nAliens now have {self.aliens[AlienType.BOSS].how_many} of Boss alien. Good luck out there!")
     else:
-      print("\nAliens did not have enough to merge into a bigger one!")
+      print("Aliens did not have enough to merge into a bigger one!")
 
 
   def take_damage_from_1_player(self, player):
@@ -115,13 +115,12 @@ class Aliens:
       return
     if base.defenses > 0:
       number_of_players = len(players.keys())
-      alien_damage = sum(alien.damage * alien.how_many for alien in self.aliens.values())
       remaining_damage = min(base.defenses, total_alien_damage)
       base.defenses -= remaining_damage
       self.take_damage_from_base(total_base_damage)
       if base.defenses <= 0:
         base.defenses = 0
-        damage_to_be_dealt = alien_damage / number_of_players
+        damage_to_be_dealt = total_alien_damage / number_of_players
         for player in players.values():
           player.health -= damage_to_be_dealt
           player.update_alive_status()
@@ -134,10 +133,5 @@ class Aliens:
 
     for alien_type, alien in self.aliens.items():
       print(f"\nNumber of {alien_type} aliens left: {alien.how_many}!")
-    
-    else:
-      self.attack(player)
-      print("\nYour base defenses have been destroyed, your storage has been raided... FIGHT FOR YOUR LIFE!")
-      
 
 aliens = Aliens()

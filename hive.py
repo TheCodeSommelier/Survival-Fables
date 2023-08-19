@@ -8,3 +8,4 @@ class Hive:
 
   def spawn_aliens(self, aliens):
     aliens.aliens[AlienType.BASIC].how_many += 1
+    print(f"1 Basic alien was spawned!")
