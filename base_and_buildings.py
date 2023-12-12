@@ -18,7 +18,7 @@ class Building:
       if weapon_name in MATERIAL_REQUIREMENTS and all(material in base.storage and base.storage[material] >= amount for material, amount in MATERIAL_REQUIREMENTS[weapon_name].items()):
         for material, amount in MATERIAL_REQUIREMENTS[weapon_name].items():
           base.storage[material] -= amount
-        
+
         if weapon_name in {"Spear", "Knife", "Bow", "Gun"}:
           if player.equipped_melee_weapon == "Spear":
             damage_bonus -= 20
@@ -29,10 +29,10 @@ class Building:
             player.equipped_melee_weapon = weapon_name
           elif weapon_name in {"Bow", "Gun"}:
             player.equipped_ranged_weapon = weapon_name
-          
+
           if weapon_name:
             player.damage += damage_bonus
-          
+
           print(f"{player.name} has crafted a {weapon_name}. Their damage is {player.damage}.")
         else:
           player.bomb.append(weapon_name)
@@ -60,7 +60,7 @@ class Building:
       for material, amount in MATERIAL_REQUIREMENTS["Upgrade defenses"].items():
         base.storage[material] -= amount
       base.defenses += 30
-      print(f"Congrats! You have upgraded your defences! Base defences: {base.defenses}")
+      print(f"Congrats! You have upgraded your defenses! Base defenses: {base.defenses}")
     else:
       print(f"You don't have enough materials to upgrade your defenses... ")
 
@@ -74,7 +74,7 @@ class Infirmary(Building):
           print(f"You have revived {other_player}! Well done! ")
         else:
           print("\nTo revive a player they need to be dead first... ")
-    
+
   def heal(self, player):
     if player.health in range(80, 101):
       player.health = 100
@@ -90,7 +90,7 @@ class Library(Building):
       player.combat_skill = "Combat expert"
       player.damage += 30
       print(f"\n{player.name} is now a combat expert. They have {player.damage} of damage. ")
-    else:        
+    else:
       print("\nThis player already is a combat expert...")
 
   def learn_tracking(self, player):
@@ -99,4 +99,3 @@ class Library(Building):
       print(f"\n{player.name} is now a tracker. {player.name} has a higher probability of getting more materials! ")
     else:
       print(f"\n{player.name} is already a tracker... ")
-  

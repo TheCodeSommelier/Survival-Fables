@@ -61,14 +61,14 @@ class Survivors:
 
 
   def update_alive_status(self):
-    self.alive = self.health > 0 
+    self.alive = self.health > 0
 
 
   def explore(self, hive, aliens, base):
     hive.spawn_aliens(aliens)
     aliens.merge()
     gather_materials(base)
-    
+
 
   def fight_aliens(self, aliens, player):
     aliens.defend(player)
@@ -77,7 +77,7 @@ class Survivors:
       print(f"\n{self.name} has died! Revive them! ")
     else:
       print(f"\n{self.name} you have survived your HP is at a {self.health}! ")
-    
+
 
   def build(self, base, aliens, hive):
     while True:
@@ -88,14 +88,14 @@ class Survivors:
       player_input = input(f"""
       What do you want to build {self.name}? Type either:
       - Infirmary (50 wood and 50 stone)
-      - Armoury (200 wood ,200 stone and 100 iron)
+      - Armoury (200 wood, 200 stone and 100 iron)
       - Library (100 wood and 100 stone)
-      - Nothing 
+      - Nothing
       """).capitalize()
 
       if player_input== "Infirmary":
         if base.infirmary == True:
-          print(f"You aready have an Infirmary! ")
+          print(f"You already have an Infirmary! ")
           break
         elif base.storage["wood"] >= 50 and base.storage["stone"] >= 50:
           base.infirmary = True
@@ -105,11 +105,11 @@ class Survivors:
           print(f"\nCongrats you have built an Infirmary now you can heal and revive players! ")
           break
         else:
-          print("You don't have enough materials to build an Ifirmary...")
+          print("You don't have enough materials to build an Infirmary...")
           break
       elif player_input == "Armoury":
         if base.armoury == True:
-          print(f"You aready have an Armoury! ")
+          print(f"You already have an Armoury! ")
           break
         elif base.storage["stone"] >= 150 and base.storage["wood"] >= 150 and base.storage["iron"] >= 100:
           base.armoury = True
@@ -123,7 +123,7 @@ class Survivors:
           break
       elif player_input == "Library":
         if base.library == True:
-          print(f"You aready have an Library! ")
+          print(f"You already have a Library! ")
           break
         elif base.storage["wood"] >= 100 and base.storage["stone"] >= 100:
           base.library = True
@@ -143,16 +143,16 @@ class Survivors:
 
 
   def craft_gear(self, base, armoury, player):
-    player_input = input("""\nWhat do you want to craft? 
+    player_input = input("""\nWhat do you want to craft?
     Type either:
     - Spear (adds 20 damage to the player. Costs 20 of wood and stone)
     - Bow (adds 30 damage to the player. Costs 30 of wood and stone)
     - Knife (adds 50 damage to the player. Costs 50 iron.)
     - Gun (adds 80 damage to the player. Costs 80 iron and 30 chemicals)
     - Upgrade defenses (adds 30 to the base defenses. Costs 30 wood and stone and 50 iron)
-    - Bomb (adds a bomb to your 'Bomb list' and you can then attack the hive. Costs 150 minerals and 120 chemiscals)
-    - Armour (adds 100 armour to the player. Costs 20 stone and 30 iron)
-    - Nothing 
+    - Bomb (adds a bomb to your 'Bomb list' and you can then attack the hive. Costs 150 minerals and 120 chemicals)
+    - Armour (adds 100 armor to the player. Costs 20 stone and 30 iron)
+    - Nothing
     """).capitalize()
 
     if base.armoury:
@@ -165,7 +165,7 @@ class Survivors:
         if base.storage["wood"] >= 30 and base.storage["stone"] >= 30:
           armoury.craft_weapon(player, "Bow", 30, base)
         else:
-          print("You dno't have enough materials to craft a Bow... ")
+          print("You don't have enough materials to craft a Bow... ")
       elif player_input == "Knife":
         if base.storage["iron"] >= 50:
           armoury.craft_weapon(player, "Knife", 50, base)
@@ -181,7 +181,7 @@ class Survivors:
         if base.storage["minerals"] >= 150 and base.storage["chemicals"] >= 120:
           armoury.craft_weapon(player, "Bomb", 0, base)
         else:
-          print("You don' have enough materials to craft a Bomb... ")
+          print("You don't have enough materials to craft a Bomb... ")
       elif player_input == "Armour":
         if base.storage["stone"] >= 20 and base.storage["iron"] >= 30:
           armoury.craft_armour(player, 100, base)
@@ -190,16 +190,16 @@ class Survivors:
       elif player_input == "Nothing":
         print(f"{player.name} chose to craft nothing! ")
       else:
-        print(f"Invalid input... Please input 'Spear', 'Bow', 'Upgrade defenses', 'Bomb', 'Armour' or 'Nothing'. ")
+        print(f"Invalid input... Please input 'Spear', 'Bow', 'Upgrade defenses', 'Bomb', 'Armour', or 'Nothing'. ")
     else:
-      print("\nYou don't have an Armoury. You can build it for 150 wood, 150 stone and 100 iron. ")
+      print("\nYou don't have an Armoury. You can build it for 150 wood, 150 stone, and 100 iron. ")
 
 
   def attack_the_hive(self, aliens, hive, player):
     if "Bomb" not in self.bomb:
-      print(f"{player.name}, you can't attack the hive beacuse you don't have a bomb...")
+      print(f"{player.name}, you can't attack the hive because you don't have a bomb...")
       return
-    
+
     aliens.attack(self)
     self.update_alive_status()
     if not self.alive:
@@ -209,7 +209,7 @@ class Survivors:
             while "Bomb" in self.bomb:
                 self.bomb.remove("Bomb")
             hive.hp -= 1000
-            print(f"\nYou have destroyed the Hive {self.name}, but you have died trying! The survivors have won!! The remaining aliens die with horriffing screams and you can finally breathe. It's over...")
+            print(f"\nYou have destroyed the Hive {self.name}, but you have died trying! The survivors have won!! The remaining aliens die with horrifying screams and you can finally breathe. It's over...")
         elif rand_num in success and self.bomb.count("bomb") == 1 and hive.hp == 1000:
             self.bomb.remove("Bomb")
             hive.hp -= 500
@@ -240,9 +240,9 @@ class Survivors:
         elif rand_num not in success:
             self.bomb.remove("Bomb")
             print(f"\nYour attack failed... You didn't do any damage to the hive... Your HP is {self.health}")
-          
 
-  def save_a_player(self, base, other_player, infirmary): 
+
+  def save_a_player(self, base, other_player, infirmary):
     if base.infirmary:
       if base.infirmary == True and base.storage["medicine"] >= 60:
         base.storage["medicine"] -= 60
@@ -254,7 +254,7 @@ class Survivors:
       print("\nTo heal or save players you need to first build an Infirmary!")
 
 
-  def heal_player(self, base, infirmary): 
+  def heal_player(self, base, infirmary):
     if base.infirmary:
       if base.storage["medicine"] >= 15:
         base.storage["medicine"] -= 15
@@ -269,7 +269,7 @@ class Survivors:
 
   def learn(self, base, library):
     if base.library:
-      input_p = input("""\nWhat do you want to learn? 
+      input_p = input("""\nWhat do you want to learn?
                       1. Combat (Adds 30 damage to your overall damage)
                       2. Tracking (Increases the probability of you finding materials)
                       """)

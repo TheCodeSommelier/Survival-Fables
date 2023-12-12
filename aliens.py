@@ -25,7 +25,7 @@ class Aliens:
     else:
       player.health = 0
       self.take_damage_from_1_player(player)
-  
+
 
   def merge(self): # Based on a result of the merge we'll create a color size attr
     if self.aliens[AlienType.BASIC].how_many >= 15:
@@ -65,7 +65,7 @@ class Aliens:
       self.aliens[AlienType.MID].health = 40
       self.aliens[AlienType.BOSS].health = 200
 
-  
+
   def take_damage_from_base(self, total_base_damage):
     for _ in range(total_base_damage // 10):
       for alien_type, alien in self.aliens.items():
@@ -78,12 +78,12 @@ class Aliens:
       self.aliens[AlienType.BASIC].health = 10
       self.aliens[AlienType.MID].health = 40
       self.aliens[AlienType.BOSS].health = 200
-      
 
-  def attack(self, player): 
+
+  def attack(self, player):
     # Total damage dealt by aliens
     total_alien_damage = sum(alien.damage * alien.how_many for alien in self.aliens.values())
-    
+
     # This calculates the respective damage to the armour of the players if any
     remainder = 0
     if player.armour > 0:
@@ -105,13 +105,13 @@ class Aliens:
     # This calculates the damage of the players and subtracts the damage from alien health
     total_player_damage = sum(player.damage for player in players.values())
     self.take_damage_from_all_players(total_player_damage)
-    
-  
+
+
   def attack_base(self, base, player):
     number_of_aliens = sum(alien.how_many for alien in self.aliens.values())
     total_base_damage = base.defenses
     total_alien_damage = sum(alien.damage * alien.how_many for alien in self.aliens.values())
-    if number_of_aliens == 0:    
+    if number_of_aliens == 0:
       return
     if base.defenses > 0:
       number_of_players = len(players.keys())
@@ -120,7 +120,7 @@ class Aliens:
       self.take_damage_from_base(total_base_damage)
       if base.defenses <= 0:
         base.defenses = 0
-        damage_to_be_dealt = total_alien_damage / number_of_players
+        damage_to_be_dealt = total_alien_damage // number_of_players
         for player in players.values():
           player.health -= damage_to_be_dealt
           player.update_alive_status()
@@ -128,8 +128,8 @@ class Aliens:
           base.storage[material] = int(base.storage[material] / 2)
         print("\nYour base defenses have been destroyed, your storage has been raided... FIGHT FOR YOUR LIFE!")
       else:
-        print(f"\nGood you fought them off! You have {base.defenses} of your defense left!")
-      
+        print(f"\nGood, you fought them off! You have {base.defenses} of your defense left!")
+
 
     for alien_type, alien in self.aliens.items():
       print(f"\nNumber of {alien_type} aliens left: {alien.how_many}!")

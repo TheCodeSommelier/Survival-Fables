@@ -31,37 +31,37 @@ def help(player):
     2. Fighting aliens
     3. Building
     4. Crafting
-    5. Attacing the hive
+    5. Attacking the hive
     6. Revivng players
     7. Healing
-    8. Learing
+    8. Learning
     9. Don't need help
     """)
     help_menu = input()
 
     if help_menu == "1":
-      display_with_typing("""\nIn the beginning you can really do only two things explore or fight aliens. 
-We highly recommend exploration as that is how you get materials. Just remeber to fight every now and then,
+      display_with_typing("""\nIn the beginning, you can do only two things explore or fight aliens.
+We highly recommend exploration as that is how you get materials. Just remember to fight now and then,
 otherwise the aliens will be spawning and merging endlessly. So start with exploring and take it from there!""")
       break
     elif help_menu == "2":
-      display_with_typing(f"""\nFighting aliens is pretty straight forward in this game.
-Everytime you explore 1 basic alien spawns every 10 basic = 1 mid, every 10 mid = 1 boss. 
-If your damage is higher then the aliens health you kill them and if it is high enough 
-to cover all of the health of all the aliens, you kill them all. Try to fight often, 
+      display_with_typing(f"""\nFighting aliens is pretty straightforward in this game.
+Every time you explore 1 basic alien spawns every 10 basic = 1 mid, and every 10 mid = 1 boss.
+If your damage is higher than the alien's health you kill them and if it is high enough
+to cover all of the health of all the aliens, you kill them all. Try to fight often,
 as it will make your game easier. """)
       break
     elif help_menu == "3":
-      display_with_typing("""\nYou need buidings to be able to craft (Armoury), learn (Library), heal (Infirmary) and revive (Infirmary). 
+      display_with_typing("""\nYou need buildings to be able to craft (Armoury), learn (Library), heal (Infirmary), and revive (Infirmary).
 So definitely BUILD! Just keep in mind that for every building you build 3 basic aliens spawn.
-Requirements: 
+Requirements:
       """)
       for building in MATERIAL_REQUIREMENTS.keys():
         if building in {"Infirmary", "Armoury", "Library"}:
           display_with_typing(f"""\n{building} - {MATERIAL_REQUIREMENTS[building]}""")
       break
     elif help_menu == "4":
-      display_with_typing(f"""\nTo craft anything you need an Armoury first. 
+      display_with_typing(f"""\nTo craft anything you need an Armoury first.
 Once you have it you can craft these weapons and upgrades.
 Requirements:
       """)
@@ -70,15 +70,15 @@ Requirements:
           display_with_typing(f"{item} - {MATERIAL_REQUIREMENTS[item]}")
       break
     elif help_menu == "5":
-      display_with_typing("""\nIf you have a bomb you can attack the hive. Success rate is randomised so you never know...
-You need two bombs to destroy the hive completely in single go (Attack needs to be successful). 
+      display_with_typing("""\nIf you have a bomb you can attack the hive. The success rate is randomised so you never know...
+You need two bombs to destroy the hive completely in a single go (Attack needs to be successful).
 Once you destroy the hive either in multiple attacks or in a single go you win!""")
       break
     elif help_menu == "6":
       display_with_typing(f"""\nIf a player dies you can revive them for 60 medicine. It will add 20 hp to their health. """)
       break
     elif help_menu == "7":
-      display_with_typing(f"""\nWhen you take some damage you can heal for 20 medicine and each heal will add 20hp to your health. """)
+      display_with_typing(f"""\nWhen you take some damage you can heal with 20 medicine and each heal will add 20hp to your health. """)
       break
     elif help_menu == "8":
       display_with_typing(f"""\nIf you have a library built you can learn new skills 'Combat' will increase your damage
@@ -105,16 +105,16 @@ hive = Hive()
 
 # Starting message what players see when they start the game!
 welcome_message = """\nWelcome to 'Survival Fables'!!
-\nThe world has been invaded by hostile aliens! You have to fight, build and survive to win the game!
+\nThe world has been invaded by hostile aliens! You have to fight, build, and survive to win the game!
 Go and save the world! Destroy the 'Hive'!
 \nBeginnig - Start by exploring! Get some materials and then build buildings! Don't forget to kill aliens every now and then!
-                        
-  ____         _____ 
+
+  ____         _____
  / ___|       |  ___|
 | |___        | |_
- \___ \       |  _|   
+ \___ \       |  _|
  ____) |  _   | |    _
-|_____/  |_|  |_|   |_|  
+|_____/  |_|  |_|   |_|
 
       """
 
@@ -143,15 +143,15 @@ while game_running:
       continue
 
     random_base_attack(base, aliens, player)
-        
+
     # This is the player interface!
     choice = input(f"""
-  
+
     NEW ROUND {player.name.upper()} IS PLAYING
 
     ============ Base stats ============
-    Defences - {base.defenses}
-    
+    Defenses - {base.defenses}
+
     Storage - Wood: {base.storage['wood']}
             - Stone: {base.storage['stone']}
             - Iron: {base.storage['iron']}
@@ -164,9 +164,9 @@ while game_running:
                  - Your health {player.health}
                  - Your armour {player.armour}
 
-    Your weapons: - Melee: {player.equipped_melee_weapon} 
+    Your weapons: - Melee: {player.equipped_melee_weapon}
                   - Ranged: {player.equipped_ranged_weapon}
-                 
+
     Your skills: - Combat: {player.combat_skill}
                  - Tracking: {player.tracking_skill}
 
@@ -177,18 +177,18 @@ while game_running:
 
     Middle - Damage: {mid_alien.how_many * mid_alien.damage}
            - Health: {mid_alien.how_many * mid_alien.health}
-           - Quantity: {mid_alien.how_many} 
+           - Quantity: {mid_alien.how_many}
 
     Boss - Damage: {boss_alien.how_many * boss_alien.damage}
          - Health: {boss_alien.how_many * boss_alien.health}
-         - Quantity: {boss_alien.how_many} 
+         - Quantity: {boss_alien.how_many}
 
     Hive - Health: {hive.hp}
 
     What do you want to do {player.name}? (Type a number below to make your choice of activity!)
-    
+
     1. Explore (that is how you get materials)
-    2. Fight aliens (that is how keep alines in check)
+    2. Fight aliens (that is how to keep alines in check)
     3. Build buildings (only possible with materials)
     4. Craft gear (only possible with an Armoury built)
     5. Attack the hive (only possible with a bomb)
@@ -196,7 +196,7 @@ while game_running:
     7. Heal (only functional with less health than a 100)
     8. Learn (learn extra skills either tracking or combat)
     9. Help (Will display a manual)
-    10. End game 
+    10. End game
     """)
 
     # This if/elif/else statement lets players pick their action
@@ -238,7 +238,7 @@ while game_running:
     game_running = False
     break
   elif all(player.alive == False for player in players.values()):
-    display_with_typing("""All players have died! 
+    display_with_typing("""All players have died!
     Thank you for playing Survival Fables the game is now over! 🙏 """)
     game_running = False
     break
